@@ -1,99 +1,127 @@
-# DomowyMagazyn - aplikacja do zarządzania częściami elektronicznymi
+# Domowy Magazyn
+
+Program do prowadzenia domowego magazynu części elektronicznych: rezystorów, kondensatorów, układów scalonych, złączy i całej reszty, która ląduje w szufladkach. Wiesz, co masz, gdzie to leży, ile zostało i czego brakuje do projektu.
+
+Napisany w C++17 z wxWidgets, dane trzyma w PostgreSQL. Działa na Windows, macOS i Linuksie, interfejs jest po polsku.
+
+![Katalog elementów](dokumentacja/zrzuty/katalog.png)
+
+## Co potrafi
+
+**Magazyn**
+- Drzewo kategorii i podkategorii, elementy z symbolem, producentem, wartością, tolerancją, obudową, ceną i zdjęciem.
+- Miejsce magazynowania (np. *Kontener 1 / szufladka A1 / przegroda 2*), stan minimalny z kolorowym ostrzeżeniem, historia przyjęć i wydań.
+- Kody kreskowe EAN i wydruk etykiet; odczyt kodu ze zdjęcia z kamery USB (opcjonalnie, OpenCV).
+- Szybkie wyszukiwanie po symbolu, opisie, producencie, obudowie i tagach.
+
+**Hurtowe dodawanie**
+- Generator szeregów E12, E24, E48 i E96 dla rezystorów, kondensatorów i cewek, z własnym wzorem symbolu i kolejnymi szufladkami.
+- Import elementów z CSV (nagłówki po polsku lub angielsku, separator wykrywany automatycznie).
+
+![Generator szeregów](dokumentacja/zrzuty/generator.png)
+
+**Projekty**
+- Import listy części (BOM) z KiCada i Eagle'a, dopasowanie do magazynu, lista zakupów do CSV, wydawanie części z magazynu na projekt.
+
+**Katalog elementów**
+- Osobna baza typów elementów (np. LM358, BC547) z parametrami, powiązana z magazynem po symbolu.
+- Pobieranie datasheetów i odczyt parametrów z PDF: tabele *Absolute Maximum Ratings* i *Electrical Characteristics*, hFE tranzystorów i opis zastosowania. To heurystyka, więc program tylko proponuje, a Ty zatwierdzasz.
+
+**Sklepy i ceny**
+- Lista sklepów, sprawdzanie cen na stronach produktów, historia cen, najtańsze zestawienie zakupów.
+
+**Narzędzia**
+- Paski kolorów rezystorów (3 do 6 pasków) w obie strony, kody SMD (3 i 4 cyfry, EIA-96, kondensatory).
+- Kalkulatory: dzielnik napięcia, rezystor do diody LED, filtr RC.
+
+![Paski kolorów](dokumentacja/zrzuty/narzedzia.png)
+
+**Eagle CAD 7.6**
+- Skrypt `.scr` ustawiający atrybuty części oraz program ULP, który zapisuje listę części do CSV czytanego przez import projektu.
+
+**Inne**
+- Pomoc w oknie programu (F1, opisy pól w dymkach), raporty, kopie zapasowe, sprawdzanie aktualizacji (menu Pomoc).
+
+## Pobieranie
+
+Gotowe instalatory (DEB dla Debiana i Ubuntu, instalator i wersja przenośna dla Windows, DMG dla macOS) znajdziesz w zakładce **Releases**. Program potrzebuje działającego serwera PostgreSQL, który może być na tym samym albo innym komputerze.
+
 ## Wymagania
-- wxWidgets 3.2+
-- PostgreSQL 9.6+
-- CMake 3.16+
-----
-# Budowanie programu (Windows, MSYS2)
 
-Cały program buduje się w powłoce **MSYS2 MINGW64** (nie MSYS, nie UCRT64).
-
-## Pakiety
-
-```bash
-pacman -S --needed mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake mingw-w64-x86_64-ninja \
-  mingw-w64-x86_64-wxwidgets3.2-msw mingw-w64-x86_64-postgresql mingw-w64-x86_64-gettext-tools
-```
+| | |
+|---|---|
+| Kompilator | C++17 (GCC, Clang, MinGW) |
+| Budowanie | CMake 3.16 lub nowszy |
+| Biblioteki | wxWidgets 3.2, libpq (PostgreSQL) |
+| Baza danych | PostgreSQL 9.6 lub nowszy z rozszerzeniem `ltree` |
+| Opcjonalnie | OpenCV (moduły `core` i `videoio`, kamera USB), poppler (`pdftotext`, odczyt datasheetów), gettext (tłumaczenia) |
 
 ## Budowanie
 
+**Linux (Debian, Ubuntu)**
 ```bash
-cd /g/Massaada/Develop/DomowyMagazyn
-rm -rf build && mkdir build && cd build
-cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release          # -DDM_CONSOLE=ON dodaje konsolę do debugowania
-ninja
-./DomowyMagazyn.exe
+sudo apt install cmake g++ libwxgtk3.2-dev libpq-dev poppler-utils libopencv-dev
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j
+./build/DomowyMagazyn
 ```
+Pakiet DEB: `narzedzia/zbuduj_deb.sh`.
 
-Po zbudowaniu CMake kopiuje obok exe katalog `sql/` oraz (w MSYS2) wymagane DLL-ki z `/mingw64`.
-Nie kopiuj nic z innych instalacji wxWidgets/PostgreSQL, bo pomieszane wersje DLL
-dają błąd 0xc0000139.
+**Windows (MSYS2, powłoka MINGW64)**
+```bash
+pacman -S --needed mingw-w64-x86_64-toolchain mingw-w64-x86_64-cmake mingw-w64-x86_64-ninja \
+  mingw-w64-x86_64-wxwidgets3.2-msw mingw-w64-x86_64-postgresql
+cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+```
+Instalator i wersja przenośna: `narzedzia/zbuduj_windows.sh`.
 
-## Konfiguracja
+**macOS**
+```bash
+brew install cmake wxwidgets postgresql@15 dylibbundler poppler    # albo odpowiedniki z MacPorts
+cmake -S . -B build-mac -DCMAKE_BUILD_TYPE=Release -DUSE_SYSTEM_WX=ON
+cmake --build build-mac -j
+```
+Aplikacja `.app` i obraz `.dmg`: `narzedzia/zbuduj_macos.sh`. Szczegóły i uwagi o MacPorts: [dokumentacja/instalacja.md](dokumentacja/instalacja.md).
 
-Program szuka `config.ini` obok exe, potem w katalogu bieżącym i katalog wyżej.
-Jeśli pliku nie ma, zapisze nowy obok exe. Połączenie ustawiasz w programie:
-**Baza danych → Ustawienia połączenia...**. Hasło można zapisać w pliku (zwykły tekst)
-albo nie zapamiętywać; wtedy program zapyta o nie przy starcie.
+## Pierwsze uruchomienie
 
-## Pierwsze uruchomienie bazy
+1. Uruchom program i wpisz dane połączenia: **Baza danych → Ustawienia połączenia**.
+2. Na pustej bazie wybierz **Baza danych → Utwórz / zaktualizuj strukturę bazy**. Skrypty z katalogu `sql/` można uruchamiać wielokrotnie, nie kasują danych.
+3. Rozszerzenie `ltree` musi być dostępne. Jeśli użytkownik aplikacji nie może go utworzyć, administrator wykonuje jednorazowo `CREATE EXTENSION IF NOT EXISTS ltree;`.
+4. Opcjonalnie zaimportuj kategorie startowe: **Magazyn → Importuj kategorie startowe**.
 
-Po połączeniu z pustą bazą program zaproponuje utworzenie struktury. Można też zrobić to
-później: **Baza danych → Utwórz / zaktualizuj strukturę bazy...** (skrypty z katalogu `sql/`
-można uruchamiać wielokrotnie, nie kasują danych). Ręcznie, kolejno:
-`schema.sql`, `funkcje_i_trigger.sql`, `widoki.sql`, `dane_startowe.sql`.
-Wymagany PostgreSQL 9.6 lub nowszy i rozszerzenie `ltree`. Jeśli użytkownik aplikacji
-nie ma uprawnienia CREATE na bazie, administrator wykonuje jednorazowo:
-`psql -U postgres -d NAZWA_BAZY -c "CREATE EXTENSION IF NOT EXISTS ltree;"`.
-
-## Obsługa programu
-Opis okien i funkcji: `instrukcja_uzytkownika.md`.
+Konfiguracja (`config.ini`) zawiera dane dostępu do bazy, razem z hasłem zapisanym zwykłym tekstem, jeśli pozwolisz programowi je zapamiętać. Ten plik nie należy do repozytorium.
 
 ## Testy
 
+Testy działają na osobnej, pustej bazie (kasują schemat `public`!):
+
 ```bash
-cmake .. -G Ninja -DDM_BUILD_TESTS=ON
-ninja
-# osobna, pusta baza testowa! Test czyści schemat public.
-DM_TEST_DB=dm_test DM_TEST_USER=postgres DM_TEST_PASSWORD=... ctest --output-on-failure
+cmake -S . -B build -DDM_BUILD_TESTS=ON
+cmake --build build -j
+DM_TEST_DB=dm_test DM_TEST_USER=postgres DM_TEST_PASSWORD=... ctest --test-dir build --output-on-failure
+```
+Testy okien (`test_gui`, `test_siec`) buduje się osobno (`make test_gui`) i wymagają wyświetlacza, np. `xvfb-run`.
+
+## Dokumentacja
+
+- [Instrukcja użytkownika](dokumentacja/instrukcja_uzytkownika.md)
+- [Budowanie i instalacja](dokumentacja/instalacja.md)
+- [Struktura bazy danych](dokumentacja/struktura_bazy.md)
+- [Lista zadań i pomysłów](DoZrobienia.txt)
+
+## Układ katalogów
+
+```
+src/        kod: BazaDanych, Logika, GUI, Import, Eksport, Wyszukiwanie, Narzedzia, Pomoc
+sql/        schemat bazy, funkcje, widoki, dane startowe
+pomoc/      źródło pomocy HTML i opisy pól
+narzedzia/  skrypty budujące (DEB, Windows, macOS, ikony, pomoc)
+tests/      testy
+lang/       tłumaczenia
 ```
 
-## Pakiet DEB (Debian, Ubuntu, Mint)
-Budowanie: `narzedzia/zbuduj_deb.sh` (wymaga cmake, g++, libwxgtk3.2-dev, libpq-dev, dpkg-dev; kamera: libopencv-dev). Wynik: `domowymagazyn_<wersja>_amd64.deb`.
+## Sprawdzanie aktualizacji
 
-Instalacja: `sudo apt install ./domowymagazyn_1.0.0_amd64.deb` (apt doinstaluje wymagane biblioteki). Uruchomienie: polecenie `domowymagazyn` albo ikona w menu aplikacji.
-
-Program leży w `/usr/lib/domowymagazyn`. Ponieważ ten katalog jest tylko do odczytu, konfiguracja trafia do `~/.config/DomowyMagazyn/config.ini`, a zdjęcia i datasheety (jeśli nie ustawisz własnych ścieżek w Ustawieniach) do `~/.local/share/DomowyMagazyn/`. Serwer PostgreSQL nie jest instalowany razem z pakietem (może działać na innym komputerze); po pierwszym uruchomieniu wpisz dane połączenia i wybierz "Baza danych / Utwórz / zaktualizuj strukturę bazy". Do odczytu parametrów z datasheetów przyda się `poppler-utils` (pakiet go poleca).
-
-## Instalatory dla Windows i macOS
-Każdy pakiet buduje się na swoim systemie. Wspólne wejście: `narzedzia/zbuduj_instalator.sh [deb|windows|macos]` (bez argumentu wybiera bieżący system).
-- **Windows** (powłoka MSYS2 MinGW 64-bit): `narzedzia/zbuduj_windows.sh`. Wynik: `DomowyMagazyn-<wersja>-win64.zip` (wersja przenośna, z bibliotekami DLL) oraz `DomowyMagazyn-<wersja>-instalator.exe`, jeśli jest NSIS (`pacman -S mingw-w64-x86_64-nsis`; do ikony `mingw-w64-x86_64-imagemagick`; do odczytu datasheetów `mingw-w64-x86_64-poppler`). Instalator kopiuje program do Program Files, tworzy skróty i wpis w „Aplikacje i funkcje". Konfiguracja użytkownika trafia do `%APPDATA%\DomowyMagazyn`.
-- **macOS**: `narzedzia/zbuduj_macos.sh` (potrzebne: `brew install cmake wxwidgets postgresql@15 dylibbundler`, opcjonalnie `poppler`). Wynik: `DomowyMagazyn-<wersja>-macos-<arch>.dmg` z `DomowyMagazyn.app` z dołączonymi bibliotekami (dylibbundler). Aplikacja jest podpisana tylko „ad hoc", więc po pobran
-
-- 05_okno_z_danymi (1260, 780)
-21_zakladka_katalog (1400, 1000)
-09_projekty (1260, 780)
-17d_wartosc6 (1400, 1000)
-16_generator_szeregow (1400, 1000)
-total 564
-drwxr-xr-x 2 root root   4096 Oct 17 06:49 .
-drwxr-xr-x 3 root root   4096 Oct 17 06:49 ..
--rw-r--r-- 1 root root 164229 Oct 17 06:49 generator.png
--rw-r--r-- 1 root root  90994 Oct 17 06:49 katalog.png
--rw-r--r-- 1 root root  96425 Oct 17 06:49 magazyn.png
--rw-r--r-- 1 root root 107859 Oct 17 06:49 narzedzia.png
--rw-r--r-- 1 root root  96425 Oct 17 06:49 projekty.png
-# Domowy Magazyn: instrukcja użytkownika (etap 3: projekty, raporty, etykiety, sklepy i ceny)
-
-## Pomoc, F1 i dymki
-- **Pomoc → Spis treści** (F1 w oknie głównym) otwiera pomoc w oknie programu, w układzie wzorowanym na pomocy Eagle'a 7.6: spis treści, odnośniki, przy
-- **F1 w polu formularza** pokazuje opis tego pola z przyciskiem *Więcej w pomocy*, który otwiera właściwy rozdział. Ten sam opis pojawia się w dymku po z
-- Nad listami (elementy, projekty, pozycje projektu, sklepy, linki, raporty) dymek pokazuje pełne dane wiersza, także to, co nie mieści się w kolumnach.
-- Opisy pól są w bazie (tabela `tbl_pomoc_pol`) i można je poprawić; ręcznie zmieniony opis nie jest nadpisywany przy aktualizacji struktury bazy. Bez bazy
-- Pomoc budowana jest z `pomoc/pomoc_pl.src.htm` poleceniem `python3 narzedzia/zbuduj_pomoc.py` (generuje spis treści, `pomoc_pl.htm` i `sql/pomoc_pola.sql` or
-- **Po aktualizacji programu** wykonaj *Baza danych → Utwórz / zaktualizuj strukturę bazy* (schemat wersja 4).
-
-## Okno główne
-Po lewej jest drzewo kategorii, po prawej lista elementów wybranej kategorii, na dole
-dziennik zdarzeń (można go ukryć: **Widok → Pokaż dziennik zdarzeń**). Panele są aktywne
-dopiero po połączeniu z bazą, która ma strukturę programu.
+Program porównuje swoją wersję z plikiem [`wersja.txt`](wersja.txt) w tym repozytorium. Niczego sam nie instaluje, tylko podaje link do pobrania.
