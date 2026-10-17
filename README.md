@@ -1,4 +1,4 @@
-# Domowy Magazyn
+# Magazyn Elektroniki
 
 Program do prowadzenia domowego magazynu części elektronicznych: rezystorów, kondensatorów, układów scalonych, złączy i całej reszty, która ląduje w szufladkach. Wiesz, co masz, gdzie to leży, ile zostało i czego brakuje do projektu.
 
