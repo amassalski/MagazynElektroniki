@@ -1,0 +1,660 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Domowy Magazyn - Pomoc, wersja 1.0</title>
+<style type="text/css"><!-- h1 { background-color: #CCCCCC; color: #0050B0; } pre { background-color: #EEEEEE; } mb { font-weight: bold; font-family: courier; background-color: #EEEEEE; }--></style>
+</head>
+<body>
+<table width=100% cellspacing=0 border=0><tr>
+<td align=left>Domowy Magazyn - Pomoc, wersja 1.0</td>
+<td align=right><font size=-1>
+<i>Magazyn części elektronicznych (wxWidgets, PostgreSQL)</i>
+</font></td></tr></table>
+
+<h1>Spis treści</h1>
+<ul>
+<li><a href=#ogolna>Pomoc ogólna</a>
+<ul>
+<li><a href=#pomoc-f1>Jak korzystać z pomocy</a>
+</ul>
+<li><a href=#instalacja>Połączenie z bazą danych</a>
+<ul>
+<li><a href=#polaczenie>Ustawienia połączenia</a>
+<li><a href=#struktura>Tworzenie struktury bazy</a>
+<li><a href=#kopia>Kopia zapasowa</a>
+</ul>
+<li><a href=#szybki-start>Szybkie wprowadzenie</a>
+<ul>
+<li><a href=#pierwszy-start>Pierwsze uruchomienie</a>
+<li><a href=#pierwszy-element>Pierwszy element</a>
+<li><a href=#pierwszy-projekt>Pierwszy projekt</a>
+</ul>
+<li><a href=#okno-glowne>Okno główne</a>
+<ul>
+<li><a href=#kolory>Kolory na liście</a>
+<li><a href=#sortowanie>Sortowanie</a>
+</ul>
+<li><a href=#kategorie>Kategorie</a>
+<ul>
+<li><a href=#kategorie-import>Import kategorii</a>
+</ul>
+<li><a href=#elementy>Elementy</a>
+<ul>
+<li><a href=#formularz>Pola formularza elementu</a>
+<li><a href=#pole-symbol>Symbol</a>
+<li><a href=#pole-kategoria>Kategoria</a>
+<li><a href=#pole-producent>Producent i symbol producenta</a>
+<li><a href=#pole-opis>Opis</a>
+<li><a href=#pole-wartosc>Wartość i jednostka</a>
+<li><a href=#pole-obudowa>Obudowa</a>
+<li><a href=#pole-tolerancja>Tolerancja i parametry</a>
+<li><a href=#pole-miejsce>Miejsce (kontener, szuflada, przegroda)</a>
+<li><a href=#pole-ilosc>Ilość początkowa i dostępna</a>
+<li><a href=#pole-minimum>Stan minimalny</a>
+<li><a href=#pole-cena>Cena jednostkowa i waluta</a>
+<li><a href=#pole-datasheet>Datasheet</a>
+<li><a href=#pole-zdjecie>Zdjęcie</a>
+<li><a href=#pole-tagi>Tagi</a>
+</ul>
+<li><a href=#zdjecia-elementow>Zdjęcia elementów i kamera USB</a>
+<ul>
+<li><a href=#zdjecie-kamera>Zdjęcie z kamery</a>
+<li><a href=#kamera-problemy>Kamera nie działa</a>
+</ul>
+<li><a href=#katalog-elementow>Katalog elementów</a>
+<ul>
+<li><a href=#katalog-praca>Praca z katalogiem</a>
+<li><a href=#katalog-datasheet>Odczyt parametrów z datasheetu</a>
+</ul>
+<li><a href=#wyszukiwanie>Wyszukiwanie</a>
+<ul>
+<li><a href=#eksport-csv>Eksport do CSV</a>
+</ul>
+<li><a href=#stan>Stan magazynowy</a>
+<li><a href=#generator-szeregow>Generator szeregów E</a>
+<li><a href=#import-elementow>Import elementów z pliku CSV</a>
+<ul>
+<li><a href=#import-duplikaty>Symbole, które już są w magazynie</a>
+</ul>
+<li><a href=#narzedzia-kody>Narzędzia: paski kolorów i kody SMD</a>
+<ul>
+<li><a href=#narzedzia-paski>Paski → wartość</a>
+<li><a href=#narzedzia-wartosc>Wartość → paski</a>
+<li><a href=#narzedzia-smd>Kod SMD</a>
+</ul>
+<li><a href=#kalkulatory>Narzędzia: kalkulatory</a>
+<ul>
+<li><a href=#kalk-dzielnik>Dzielnik napięcia</a>
+<li><a href=#kalk-led>Rezystor do LED</a>
+<li><a href=#kalk-rc>Filtr RC</a>
+</ul>
+<li><a href=#projekty>Projekty i lista części (BOM)</a>
+<ul>
+<li><a href=#projekty-lista>Projekty</a>
+<li><a href=#pole-status-projektu>Status projektu</a>
+<li><a href=#pozycje>Lista części projektu</a>
+<li><a href=#pole-oznaczenia>Oznaczenia</a>
+<li><a href=#pole-potrzebna>Potrzebna ilość</a>
+<li><a href=#pole-zamowiono>Już zamówiono</a>
+<li><a href=#pole-priorytet-pozycji>Priorytet pozycji</a>
+<li><a href=#pole-uwagi>Uwagi</a>
+</ul>
+<li><a href=#import-bom>Import listy części z KiCada i Eagle'a</a>
+<ul>
+<li><a href=#import-kicad>KiCad</a>
+<li><a href=#import-eagle>Eagle</a>
+<li><a href=#import-dopasowanie>Dopasowanie do magazynu</a>
+</ul>
+<li><a href=#eagle>Współpraca z Eagle CAD 7.6</a>
+<ul>
+<li><a href=#eagle-import>Z Eagle do programu</a>
+<li><a href=#eagle-eksport>Z programu do Eagle</a>
+</ul>
+<li><a href=#raporty>Raporty</a>
+<li><a href=#etykiety>Etykiety z kodem kreskowym</a>
+<ul>
+<li><a href=#etykiety-formaty>Formaty arkuszy</a>
+<li><a href=#etykiety-wydruk>Podgląd i wydruk</a>
+<li><a href=#skanowanie>Skanowanie kodów</a>
+</ul>
+<li><a href=#sklepy>Sklepy, ceny i datasheety</a>
+<ul>
+<li><a href=#lista-sklepow>Lista sklepów</a>
+<li><a href=#pole-nazwa-sklepu>Nazwa sklepu</a>
+<li><a href=#pole-adres-sklepu>Adres strony</a>
+<li><a href=#pole-szablon>Adres wyszukiwania</a>
+<li><a href=#pole-kraj>Kraj</a>
+<li><a href=#pole-waluta-sklepu>Waluta sklepu</a>
+<li><a href=#pole-dostawa>Koszt dostawy</a>
+<li><a href=#pole-darmowa>Darmowa dostawa od</a>
+<li><a href=#pole-wzorzec>Wzorzec ceny</a>
+<li><a href=#pole-priorytet-sklepu>Priorytet sklepu</a>
+<li><a href=#sklepy-import>Wczytywanie listy sklepów</a>
+<li><a href=#kursy>Kursy walut</a>
+<li><a href=#linki>Sklepy elementu</a>
+<li><a href=#pole-url-linku>Adres produktu</a>
+<li><a href=#pole-kod-sklepu>Kod w sklepie</a>
+<li><a href=#pole-minimum-zakupu>Minimalna ilość</a>
+<li><a href=#sprawdzanie-cen>Sprawdzanie cen</a>
+<li><a href=#datasheet>Datasheet</a>
+<li><a href=#zestawienie>Najtańsze zestawienie zakupów</a>
+<li><a href=#sklepy-ograniczenia>Ograniczenia</a>
+</ul>
+<li><a href=#ustawienia>Ustawienia aplikacji</a>
+<ul>
+<li><a href=#pole-folder-obrazkow>Folder obrazków</a>
+<li><a href=#pole-folder-pdf>Folder PDF</a>
+<li><a href=#pole-typ-kodu>Typ kodu</a>
+<li><a href=#pole-prefiks>Prefiks kodu</a>
+<li><a href=#pole-czcionka>Czcionka</a>
+</ul>
+<li><a href=#aktualizacje>Aktualizacje programu</a>
+<ul>
+<li><a href=#aktualizacje-wydanie>Jak wydać nową wersję (dla autora)</a>
+</ul>
+<li><a href=#skroty>Klawiatura</a>
+<li><a href=#problemy>Rozwiązywanie problemów</a>
+<ul>
+<li><a href=#problem-polaczenie>Nie można połączyć z bazą</a>
+<li><a href=#problem-wersja>Program zgłasza, że struktura bazy jest nieaktualna</a>
+<li><a href=#problem-ceny>Program nie znajduje ceny w sklepie</a>
+<li><a href=#problem-polskie>Polskie znaki w CSV wyglądają źle w Excelu</a>
+</ul>
+</ul>
+
+
+<a name=ogolna>
+<h1>Pomoc ogólna</h1>
+<b>Domowy Magazyn</b> to program do prowadzenia domowego magazynu części elektronicznych:
+rezystorów, kondensatorów, układów scalonych, złączy i wszystkiego, co leży w szufladkach.
+Dane trzymane są w bazie PostgreSQL, więc można z nich korzystać z kilku komputerów naraz.
+<p>
+Program pozwala:
+<ul>
+<li>dzielić elementy na <a href=#kategorie>kategorie</a> i szybko je <a href=#wyszukiwanie>wyszukiwać</a>,
+<li>pilnować <a href=#stan>stanów magazynowych</a> razem z historią przyjęć i wydań,
+<li>planować <a href=#projekty>projekty</a> i sprawdzać, czy masz do nich wszystkie części
+    (z importem z <a href=#import-bom>KiCada i Eagle'a</a>),
+<li>drukować <a href=#etykiety>etykiety z kodami kreskowymi</a> i odnajdywać elementy skanerem,
+<li>sprawdzać <a href=#sklepy>ceny w sklepach</a>, przechowywać datasheety i układać
+    <a href=#zestawienie>najtańsze zestawienie zakupów</a>,
+<li>tworzyć <a href=#raporty>raporty</a> do Excela i do wydruku.
+</ul>
+<h2><a name=pomoc-f1>Jak korzystać z pomocy</a></h2>
+Ten plik otwiera się z menu <tt>Pomoc / Spis treści</tt> (klawisz <tt>F1</tt> w oknie głównym).
+Gdy kursor stoi w polu formularza, klawisz <tt>F1</tt> pokazuje opis tego pola i odnośnik
+do właściwego miejsca w tej pomocy. Opis pola pojawia się też w dymku po zatrzymaniu nad nim
+wskaźnika myszy. Nad listami dymek pokazuje pełne dane wiersza, także te, które nie mieszczą się w kolumnach.
+<p>
+Teksty opisów pól są zapisane w bazie danych (tabela <tt>tbl_pomoc_pol</tt>), więc można je poprawiać
+pod swoje potrzeby. Zmiany zostają przy kolejnych aktualizacjach struktury bazy.
+<p>
+Plik pomocy jest zwykłym plikiem HTML (<tt>pomoc/pomoc_pl.htm</tt>) i można go otworzyć w dowolnej przeglądarce:
+w menu jest do tego pozycja <tt>Pomoc / Otwórz pomoc w przeglądarce</tt>.
+
+<a name=instalacja>
+<h1>Połączenie z bazą danych</h1>
+Program potrzebuje serwera PostgreSQL (wersja 9.6 lub nowsza). Serwer może działać na tym samym komputerze
+albo w sieci domowej.
+<h2><a name=polaczenie>Ustawienia połączenia</a></h2>
+Wybierz <tt>Baza danych / Ustawienia połączenia...</tt> i wpisz adres serwera, port (domyślnie 5432),
+nazwę bazy, użytkownika i hasło. Przycisk <b>Test połączenia</b> sprawdza dane bez zapisywania.
+<b>Zapisz ustawienia</b> zapisuje je w pliku <tt>config.ini</tt> obok programu.
+<p>
+Hasło można zapamiętać w pliku konfiguracji, ale jest tam zapisane jako zwykły tekst. Na komputerze, z którego
+korzystają inne osoby, lepiej wpisywać je przy każdym uruchomieniu.
+<h2><a name=struktura>Tworzenie struktury bazy</a></h2>
+Pusta baza nie ma jeszcze tabel. Wybierz <tt>Baza danych / Utwórz / zaktualizuj strukturę bazy...</tt>.
+Program wykona skrypty z katalogu <tt>sql</tt> obok pliku wykonywalnego. Skrypty można uruchamiać wielokrotnie:
+niczego nie kasują, tylko dopisują to, czego brakuje.
+<p>
+<b>Po każdej aktualizacji programu</b> wykonaj tę komendę jeszcze raz. Numer wersji struktury widać w
+<tt>Baza danych / Informacje o bazie...</tt>.
+<h2><a name=kopia>Kopia zapasowa</a></h2>
+Cały magazyn leży w bazie, więc kopię robi się narzędziami PostgreSQL, na przykład:
+<pre>pg_dump -h 192.168.111.100 -p 5433 -U uzytkownik -Fc elektronika &gt; magazyn.dump</pre>
+Odtworzenie: <tt>pg_restore -d elektronika magazyn.dump</tt>. Kopie warto robić regularnie, zwłaszcza przed aktualizacją
+struktury bazy. Zdjęcia i datasheety są w katalogach z <a href=#ustawienia>Ustawień</a>, więc one też wymagają
+kopii.
+
+<a name=szybki-start>
+<h1>Szybkie wprowadzenie</h1>
+Najkrótsza droga od pustej bazy do pierwszych elementów.
+<h2><a name=pierwszy-start>Pierwsze uruchomienie</a></h2>
+<ol>
+<li>Ustaw <a href=#polaczenie>połączenie z bazą</a> i wybierz <tt>Połącz</tt> (<tt>Ctrl+L</tt>).
+<li>Wybierz <a href=#struktura>Utwórz / zaktualizuj strukturę bazy</a>.
+<li>Wybierz <tt>Magazyn / Importuj kategorie startowe</tt>, aby dostać gotowe drzewo kategorii (rezystory,
+    kondensatory, półprzewodniki itd.). Można je potem dowolnie zmieniać.
+<li>Zaznacz kategorię i wybierz <tt>Magazyn / Nowy element</tt> (<tt>Ctrl+N</tt>).
+</ol>
+<h2><a name=pierwszy-element>Pierwszy element</a></h2>
+Wymagany jest tylko <a href=#pole-symbol>symbol</a>. Dla rezystora może to być na przykład <tt>R-10K-0603-1%</tt>,
+a w polach <a href=#pole-wartosc>Wartość</a> i <a href=#pole-obudowa>Obudowa</a> wpisujesz <tt>10k</tt> i <tt>0603</tt>.
+Wpisana <a href=#pole-ilosc>ilość początkowa</a> zostaje zapisana w historii jako przyjęcie.
+<h2><a name=pierwszy-projekt>Pierwszy projekt</a></h2>
+W menu <tt>Projekty</tt> wybierz <tt>Nowy projekt</tt>, a potem <tt>Importuj listę części</tt> (<tt>Ctrl+I</tt>) i wskaż plik
+z KiCada lub Eagle'a. Program podpowie, które części masz już w magazynie, a których brakuje.
+Szczegóły w rozdziale <a href=#projekty>Projekty i lista części</a>.
+
+<a name=okno-glowne>
+<h1>Okno główne</h1>
+Po lewej stronie jest drzewo kategorii, po prawej lista elementów wybranej kategorii, na dole dziennik zdarzeń
+(ukrywany w <tt>Widok / Pokaż dziennik zdarzeń</tt>). Zakładka <b>Projekty</b> przełącza widok na projekty.
+Panele są aktywne dopiero po połączeniu z bazą, która ma strukturę programu.
+<h2><a name=kolory>Kolory na liście</a></h2>
+<table border=1 cellspacing=0 cellpadding=4>
+<tr><td>Element poniżej stanu minimalnego</td><td>wyróżniony kolorem (pole <a href=#pole-minimum>Stan minimalny</a> równe 0 wyłącza ostrzeżenie)</td></tr>
+<tr><td>Pozycja projektu, której brakuje</td><td>pomarańczowa</td></tr>
+<tr><td>Pozycja projektu wydana w całości</td><td>zielona</td></tr>
+</table>
+<h2><a name=sortowanie>Sortowanie</a></h2>
+Kliknięcie nagłówka kolumny sortuje listę, ponowne kliknięcie odwraca kolejność.
+
+<a name=kategorie>
+<h1>Kategorie</h1>
+<ul>
+<li><b>Nowa kategoria główna</b> (<tt>Ctrl+Shift+N</tt>) dodaje kategorię na najwyższym poziomie, <b>Nowa podkategoria</b>
+    dodaje kategorię wewnątrz zaznaczonej.
+<li><b>Zmień nazwę</b> (<tt>F2</tt>) i <b>Usuń</b> (<tt>Delete</tt>) działają na zaznaczonej kategorii. Usunąć można tylko pustą
+    kategorię (bez podkategorii i elementów).
+<li>Kategorię można przenieść przeciągnięciem na inną kategorię albo na <i>Wszystkie elementy</i> (poziom główny).
+<li>Liczba w nawiasie to liczba elementów w kategorii razem z podkategoriami.
+</ul>
+<h2><a name=kategorie-import>Import kategorii</a></h2>
+<tt>Magazyn / Importuj kategorie startowe</tt> dodaje brakujące kategorie z pliku <tt>sql/kategorie_startowe.txt</tt>.
+<tt>Importuj kategorie z pliku...</tt> robi to samo z własnym plikiem tekstowym. Format pliku: jedna ścieżka w wierszu,
+nazwy rozdzielone znakiem <tt> / </tt> (ze spacjami) albo <tt>&gt;</tt>, wiersze z <tt>#</tt> są pomijane:
+<pre># przykład
+Półprzewodniki / Tranzystory / MOSFET
+Półprzewodniki / Diody
+Pasywne &gt; Rezystory</pre>
+Istniejące kategorie są pomijane, więc import można powtarzać.
+
+<a name=elementy>
+<h1>Elementy</h1>
+<ul>
+<li><b>Nowy element</b> (<tt>Ctrl+N</tt>, <tt>Insert</tt> na liście) otwiera formularz. Nowy element trafia do zaznaczonej kategorii.
+<li><b>Edytuj</b> (<tt>Ctrl+E</tt> albo dwukrotne kliknięcie). Zmiana ilości dostępnej jest zapisywana w historii jako korekta.
+<li><b>Zmień stan</b> (<tt>Ctrl+T</tt>): <a href=#stan>przyjęcie, wydanie albo ustawienie stanu</a>.
+<li><b>Usuń</b> (<tt>Delete</tt>): element bez powiązań jest kasowany razem z historią ilości. Element używany
+    (lista części projektu, zamienniki, lokalizacje) jest tylko ukrywany.
+</ul>
+<h2><a name=formularz>Pola formularza elementu</a></h2>
+Opis każdego pola jest dostępny pod klawiszem <tt>F1</tt> i w dymku.
+<h2><a name=pole-symbol>Symbol</a></h2>
+Nazwa elementu, pod którą go znajdziesz. Jedyne pole wymagane. Dobrze, gdy symbol jednoznacznie określa element,
+np. <tt>NE555P</tt> albo <tt>R-10K-0603-1%</tt>. Symbole nie muszą być unikalne, ale ułatwia to wyszukiwanie i
+<a href=#import-bom>dopasowanie przy imporcie</a>.
+<h2><a name=pole-kategoria>Kategoria</a></h2>
+Gdzie element leży w drzewie kategorii. Domyślnie jest to kategoria zaznaczona w momencie dodawania.
+<h2><a name=pole-producent>Producent i symbol producenta</a></h2>
+Nazwa producenta oraz jego oznaczenie katalogowe. Oba pola biorą udział w <a href=#wyszukiwanie>wyszukiwaniu</a> i
+na <a href=#etykiety>etykiecie</a>.
+<h2><a name=pole-opis>Opis</a></h2>
+Dowolny tekst: do czego służy element, uwagi o jakości, miejsce zakupu. Jest przeszukiwany.
+<h2><a name=pole-wartosc>Wartość i jednostka</a></h2>
+Wartość elementu, np. <tt>10k</tt>, <tt>100n</tt>, <tt>4,7u</tt>, razem z jednostką (<tt>Ω</tt>, <tt>F</tt>, <tt>H</tt>).
+Przy <a href=#import-bom>imporcie z KiCada i Eagle'a</a> program dopasowuje części po wartości i obudowie, więc warto
+wpisywać je w tej samej postaci, w jakiej występują w schematach.
+<h2><a name=pole-obudowa>Obudowa</a></h2>
+Typ obudowy, np. <tt>0603</tt>, <tt>SOIC-8</tt>, <tt>DIP-14</tt>, <tt>TO-220</tt>. Podobnie jak wartość służy do dopasowania części z
+projektów.
+<h2><a name=pole-tolerancja>Tolerancja i parametry</a></h2>
+<b>Tolerancja</b> to dopuszczalne odchylenie wartości (np. <tt>1%</tt>, <tt>5%</tt>). W szeregach E24 jest to zwykle 5%, w E48 2%, a w E96 1%.
+<b>Parametry</b> to pozostałe dane techniczne jednym tekstem, np. <tt>0,1 W; 50 V; X7R</tt> (moc, napięcie, dielektryk, prąd...).
+Oba pola są przeszukiwane i trafiają do eksportu CSV, a tolerancja jest też w osobnej kolumnie listy i na <a href=#etykiety>etykiecie</a>.
+<h2><a name=pole-miejsce>Miejsce (kontener, szuflada, przegroda)</a></h2>
+Gdzie fizycznie leży element. Trzy pola: <b>kontener</b> (np. <tt>Kontener 1</tt>), <b>szuflada</b> (np. <tt>A1</tt>) i opcjonalna
+<b>przegroda</b> (np. <tt>1</tt>). Wystarczy sama szuflada (<tt>A1</tt>), a kontener i przegroda mogą zostać puste.
+W polu kontenera można też wpisać cały zapis naraz, a program go rozdzieli. Rozpoznawane są m.in.:
+<table border=1 cellspacing=0 cellpadding=4>
+<tr><td><tt>Kontener 1 szufladka A1/1</tt></td><td>kontener <tt>Kontener 1</tt>, szuflada <tt>A1</tt>, przegroda <tt>1</tt></td></tr>
+<tr><td><tt>Kontener 1, A1/1</tt></td><td>jak wyżej</td></tr>
+<tr><td><tt>Kontener 2 B12</tt></td><td>kontener <tt>Kontener 2</tt>, szuflada <tt>B12</tt></td></tr>
+<tr><td><tt>K2/B3/4</tt></td><td>kontener <tt>K2</tt>, szuflada <tt>B3</tt>, przegroda <tt>4</tt></td></tr>
+<tr><td><tt>A1/1</tt> lub <tt>A1</tt></td><td>tylko szuflada (i przegroda)</td></tr>
+</table>
+Miejsce jest widoczne na liście elementów (kolumna <i>Miejsce</i>), w dymku, na <a href=#etykiety>etykiecie</a>, w raportach stanu
+i w eksporcie CSV. Jest też przeszukiwane: wpisanie <tt>A1/1</tt> albo <tt>Kontener 1</tt> w polu <i>Szukaj</i> pokazuje wszystko z tego miejsca.
+Program podpowiada kontenery i szuflady użyte wcześniej, co pomaga pisać je jednakowo.
+<h2><a name=pole-ilosc>Ilość początkowa i dostępna</a></h2>
+Przy nowym elemencie: ile sztuk masz w tej chwili (zapisywane w historii jako przyjęcie). Przy edycji: aktualny stan.
+Zmiana tej liczby w edycji jest zapisywana w historii jako <i>korekta</i>. Do zwykłych przyjęć i wydań lepiej
+użyć <a href=#stan>Zmień stan</a>, bo tam można dopisać komentarz.
+<h2><a name=pole-minimum>Stan minimalny</a></h2>
+Poniżej tej liczby element jest wyróżniony na liście i trafia do raportu <a href=#raporty>niskich stanów</a>.
+Wartość 0 wyłącza ostrzeżenie dla tego elementu.
+<h2><a name=pole-cena>Cena jednostkowa i waluta</a></h2>
+Cena jednej sztuki, używana do liczenia wartości magazynu. Wartość magazynu jest liczona tylko dla elementów z podaną
+ceną, a sumy podawane są osobno dla każdej waluty. Ceny z <a href=#sklepy>linków do sklepów</a> są niezależne
+od tej ceny.
+<h2><a name=pole-datasheet>Datasheet</a></h2>
+Adres internetowy karty katalogowej. Pliki PDF można też <a href=#datasheet>pobierać i przechowywać</a> w katalogu
+dokumentów.
+<h2><a name=pole-zdjecie>Zdjęcie</a></h2>
+Plik obrazu elementu. Przycisk <b>Wybierz...</b> kopiuje obraz do katalogu zdjęć z <a href=#ustawienia>Ustawień</a>.
+<h2><a name=pole-tagi>Tagi</a></h2>
+Słowa kluczowe oddzielone przecinkami, np. <tt>smd, precyzyjny, 5V</tt>. Tagi są przeszukiwane.
+
+<a name=zdjecia-elementow>
+<h1>Zdjęcia elementów i kamera USB</h1>
+Po prawej stronie listy elementów (zakładka Magazyn) widać zdjęcie i najważniejsze dane zaznaczonego elementu. Dwukrotne kliknięcie zdjęcia otwiera je w domyślnym programie.
+<h2><a name=zdjecie-kamera>Zdjęcie z kamery</a></h2>
+<ol>
+<li>Zaznacz element i naciśnij <i>Zdjęcie z kamery</i> (albo <i>Z kamery</i> w <a href=#elementy>formularzu elementu</a>).
+<li>Wybierz kamerę, jeśli podłączono kilka, i ustaw element w kadrze. Podgląd odświeża się na żywo.
+<li><i>Zrób zdjęcie</i> zatrzymuje obraz. <i>Powtórz</i> wraca do podglądu, a <i>Użyj zdjęcia</i> zapisuje zdjęcie i przypisuje je elementowi.
+</ol>
+Zdjęcia trafiają do katalogu zdjęć z <a href=#ustawienia>ustawień aplikacji</a>, jako pliki JPEG o nazwach z symbolu elementu i czasu.
+<i>Usuń zdjęcie</i> odpina zdjęcie od elementu, ale nie kasuje pliku. Zdjęcie można też wskazać z pliku.
+<h2><a name=kamera-problemy>Kamera nie działa</a></h2>
+Obsługa kamery wymaga biblioteki OpenCV w czasie budowania programu (opcja <tt>DM_KAMERA</tt>). Bez niej okno kamery mówi o tym wprost, a zdjęcie można wskazać z pliku.
+Gdy kamery nie widać, sprawdź, czy żaden inny program jej nie używa. Na macOS i Windows system może pytać o zgodę na dostęp do kamery dla programu.
+
+<a name=katalog-elementow>
+<h1>Katalog elementów</h1>
+Zakładka <i>Katalog</i> to Twoja biblioteka elementów elektronicznych, niezależna od tego, co masz w szufladach: symbol, producent, opis, obudowa, rodzina i dowolne parametry. Katalog łączy się z magazynem po symbolu (lub symbolu producenta), więc przy każdej pozycji widać, ile sztuk masz, a w podglądzie elementu pojawiają się dane z katalogu.
+<h2><a name=katalog-praca>Praca z katalogiem</a></h2>
+<ul>
+<li><i>Nowa...</i> i <i>Edytuj...</i> otwierają formularz pozycji z tabelą parametrów.
+<li><i>Dodaj do magazynu...</i> tworzy element z danymi katalogu; pytam tylko o ilość, miejsce i kategorię.
+<li>W formularzu elementu przycisk <i>Z katalogu...</i> wypełnia pola wybraną pozycją.
+<li><i>Import CSV...</i>, <i>Eksport CSV...</i> i <i>Szablon CSV...</i>: nagłówki kolumn mogą być polskie lub angielskie, a dodatkowe kolumny stają się parametrami. Komórkę <i>Parametry</i> w formie <tt>A=1; B=2</tt> ujmij w cudzysłów, gdy separatorem jest średnik.
+</ul>
+<h2><a name=katalog-datasheet>Odczyt parametrów z datasheetu</a></h2>
+Przycisk <i>Odczytaj parametry z PDF...</i> wyciąga tekst z pliku PDF (potrzebny program <tt>pdftotext</tt> z pakietu poppler) i szuka w nim napięcia zasilania, temperatury pracy, obudowy, liczby wyprowadzeń, prądu, częstotliwości i mocy, a przede wszystkim czyta tabele <i>Absolute Maximum Ratings</i> (parametry z przedrostkiem <b>Maks.:</b>) i <i>Electrical Characteristics</i> (przedrostek <b>Elektr.:</b>), w tym wzmocnienie hFE tranzystorów. Znane parametry (napięcia, prądy, moc, hFE, VCE(sat), fT, RDS(on), VF i inne) dostają polską nazwę i symbol; inne wiersze z liczbą i jednostką są proponowane ogólnie i oznaczone jako „zgadywane” (domyślnie odznaczone). Opis zastosowania (<i>Applications</i>, a gdy go brak - <i>Description</i>) można dopisać do pola <b>Uwagi</b>. To heurystyka: pokazuję propozycje wraz z fragmentem tekstu, z którego pochodzą, a do bazy trafia tylko to, co zaznaczysz. Skany bez warstwy tekstowej nie są obsługiwane.
+
+<a name=wyszukiwanie>
+<h1>Wyszukiwanie</h1>
+Pole nad listą (<tt>Ctrl+F</tt>) szuka po symbolu, symbolu producenta, producencie, opisie, wartości, obudowie i tagach.
+Wielkość liter i polskie znaki nie mają znaczenia (<tt>zolty</tt> znajdzie <tt>żółty</tt>). Kilka słów oznacza, że każde musi wystąpić.
+Wyszukiwanie dotyczy wybranej kategorii; opcje <b>Z podkategoriami</b> i <b>Tylko niski stan</b> zawężają lub rozszerzają wynik.
+<h2><a name=eksport-csv>Eksport do CSV</a></h2>
+<tt>Magazyn / Eksportuj listę do CSV...</tt> zapisuje elementy widoczne na liście (z bieżącym filtrem i sortowaniem).
+Format: UTF-8 z BOM, średnik jako separator, przecinek dziesiętny, więc plik otwiera się w polskim Excelu bez ustawień.
+
+<a name=stan>
+<h1>Stan magazynowy</h1>
+<tt>Magazyn / Zmień stan magazynowy</tt> (<tt>Ctrl+T</tt>) oferuje trzy operacje:
+<ul>
+<li><b>Przyjęcie</b>: zwiększa stan o podaną liczbę (zakup, odzysk).
+<li><b>Wydanie</b>: zmniejsza stan (użycie w projekcie, zepsucie).
+<li><b>Ustawienie stanu</b>: wpisujesz stan faktyczny po przeliczeniu, program zapisuje różnicę (inwentaryzacja).
+</ul>
+Do każdej operacji można dopisać komentarz. Stan nie może spaść poniżej zera. Wszystkie zmiany trafiają do historii,
+którą pokazuje <a href=#raporty>raport historii zmian</a>.
+
+<a name=generator-szeregow>
+<h1>Generator szeregów E</h1>
+Menu <tt>Magazyn / Generator szeregów E</tt> wprowadza do magazynu cały zestaw rezystorów, kondensatorów albo cewek jednym ruchem,
+na przykład wszystkie rezystory 0603 z szeregu E24 od 10 Ω do 1 MΩ.
+<ol>
+<li>Wybierz rodzaj i szereg (E6, E12, E24, E48, E96) oraz zakres wartości. Zakres możesz pisać zapisem <tt>4k7</tt>, <tt>100n</tt>, <tt>2M2</tt>.
+<li>Uzupełnij obudowę, tolerancję, moc (rezystory) albo napięcie i dielektryk (kondensatory), producenta, ilość każdej wartości i minimum.
+<li>Podaj miejsce, np. <tt>Kontener 1 szufladka A1</tt>. Opcja <i>Każda dekada do osobnej szuflady</i> rozkłada wartości na A1, A2, A3 itd.
+<li>Sprawdź listę podglądu: <b>nowy</b> oznacza element, którego jeszcze nie masz, a <b>już jest</b> taki, którego symbol istnieje w magazynie.
+<li>Wybierz, co zrobić z istniejącymi, i naciśnij <i>Dodaj do magazynu</i>.
+</ol>
+Symbole powstają ze wzoru, domyślnie np. <tt>R-4K7-0603-5%</tt>. Brakujące kategorie są tworzone, a ilość początkowa zapisuje się w historii.
+Przycisk <i>Zapisz jako CSV</i> zapisuje zestaw do pliku, który możesz poprawić w Excelu i wczytać przez
+<a href=#import-elementow>import z pliku CSV</a>.
+
+<a name=import-elementow>
+<h1>Import elementów z pliku CSV</h1>
+Menu <tt>Magazyn / Importuj elementy z pliku CSV</tt> wprowadza do magazynu dowolne elementy z tabeli: rezystory, kondensatory, tranzystory i inne.
+Wymagana jest tylko kolumna <tt>Symbol</tt> (albo <tt>Typ</tt> z <tt>Wartością</tt>, wtedy symbol powstanie sam). Pozostałe kolumny są opcjonalne:
+Wartość, Tolerancja, Obudowa, Parametry, Ilość, Minimum, Kategoria, Miejsce (albo osobno Kontener, Szuflada, Przegroda),
+Producent, Symbol producenta, Opis, Cena, Waluta, Tagi, Datasheet, Moc, Napięcie, Dielektryk.
+Nagłówki mogą być po polsku lub angielsku, a separator (średnik, przecinek, tabulator) program rozpozna sam.
+Przycisk <i>Zapisz szablon CSV</i> tworzy plik wzorcowy z przykładami.
+<h2><a name=import-duplikaty>Symbole, które już są w magazynie</a></h2>
+Możesz je pominąć, dodać do nich podaną ilość (z wpisem w historii) albo uzupełnić ich dane niepustymi polami z pliku, bez zmiany stanu.
+Import można więc bezpiecznie powtarzać. Wiersze z błędami są wypisywane po imporcie, a poprawne wiersze i tak trafiają do magazynu.
+
+<a name=narzedzia-kody>
+<h1>Narzędzia: paski kolorów i kody SMD</h1>
+Menu <tt>Narzędzia / Paski kolorów i kody SMD</tt> (<tt>Ctrl+D</tt>) odczytuje oznaczenia elementów.
+<h2><a name=narzedzia-paski>Paski → wartość</a></h2>
+Wybierz rezystor albo cewkę, liczbę pasków (rezystor 3 do 6, cewka 3 lub 4) i kolory od strony pierwszego paska. Każde pole ma opis roli (cyfra, mnożnik, tolerancja, współczynnik temperaturowy) i oferuje tylko kolory, które w tej roli mają sens; w tolerancji nie ma więc czarnego, żółtego, pomarańczowego ani białego. W rezystorze czteropaskowym <b>brak paska tolerancji</b> oznacza ±20 %. Na rysunku pasek tolerancji jest szerszy i oddzielony od reszty, jak w normie. Program pokaże wartość, tolerancję i dla 6 pasków
+współczynnik temperaturowy. Przycisk <i>Kopiuj wartość</i> kopiuje ją w zapisie do pola <a href=#pole-wartosc>Wartość</a>.
+<h2><a name=narzedzia-wartosc>Wartość → paski</a></h2>
+Wpisz wartość (<tt>4k7</tt>, <tt>0,22</tt>), tolerancję i liczbę pasków (3, 4, 5 lub 6), a program narysuje rezystor. Trzy paski oznaczają tolerancję 20 %, a sześć pasków dodaje współczynnik temperaturowy (domyślnie brązowy, 100 ppm/K). Wartość o trzech cyfrach znaczących (np. 4,75 k) wymaga 5 pasków.
+<h2><a name=narzedzia-smd>Kod SMD</a></h2>
+Rozpoznaje kody 3 i 4 cyfrowe, zapisy <tt>4R7</tt> i <tt>R22</tt>, EIA-96 (<tt>01A</tt> to 100 Ω) oraz kody kondensatorów w pF (<tt>104</tt> to 100 nF).
+
+<a name=kalkulatory>
+<h1>Narzędzia: kalkulatory</h1>
+Menu <tt>Narzędzia / Kalkulatory</tt> (<tt>Ctrl+Shift+K</tt>). Wyniki liczą się na bieżąco, w trakcie wpisywania. Wartości można pisać tak jak w magazynie: <tt>4k7</tt>, <tt>100n</tt>, <tt>2M2</tt>.
+<h2><a name=kalk-dzielnik>Dzielnik napięcia</a></h2>
+Wpisz napięcie wejściowe i oczekiwane wyjściowe, a program dobierze parę rezystorów z wybranego szeregu (R1 od 1 kΩ do 1 MΩ) i pokaże błąd oraz prąd dzielnika.
+Poniżej możesz sprawdzić własne R1 i R2. Wynik dotyczy dzielnika bez obciążenia.
+<h2><a name=kalk-led>Rezystor do LED</a></h2>
+Wylicza R = (Uzas − Uf) / I i wybiera najbliższą <b>nie mniejszą</b> wartość z szeregu, żeby prąd diody nie przekroczył zadanego. Pokazuje prąd rzeczywisty i moc rezystora.
+<h2><a name=kalk-rc>Filtr RC</a></h2>
+Z R i C liczy częstotliwość graniczną fc = 1 / (2πRC) i stałą czasową τ. Dla zadanej fc podpowiada R (przy znanym C) albo C (przy znanym R) wraz z najbliższą wartością z szeregu.
+
+<a name=projekty>
+<h1>Projekty i lista części (BOM)</h1>
+Zakładka <b>Projekty</b> (oraz menu <tt>Projekty</tt>) służy do planowania projektów i pilnowania, czy masz do nich komplet części.
+<h2><a name=projekty-lista>Projekty</a></h2>
+<b>Nowy projekt</b> zakłada projekt: nazwa, <a href=#pole-status-projektu>status</a> i opis. Na liście projektów kolor pomarańczowy oznacza,
+że czegoś brakuje w magazynie. <b>Usuń</b> kasuje projekt razem z listą części; jeśli wydano już do niego części, projekt jest tylko archiwizowany
+(pokażesz go polem <i>Pokaż zarchiwizowane</i>).
+<h2><a name=pole-status-projektu>Status projektu</a></h2>
+Planowany, w trakcie, wstrzymany lub zakończony. Status ma charakter informacyjny, ale
+<a href=#zestawienie>najtańsze zestawienie</a> domyślnie pomija projekty zakończone.
+<h2><a name=pozycje>Lista części projektu</a></h2>
+Po prawej widać: oznaczenia (R1, R2...), symbol, wartość, obudowę, ile potrzeba, ile już wydano, ile jest w magazynie i ile brakuje.
+<ul>
+<li><b>Dodaj część...</b> dodaje element z magazynu (jeśli już jest w projekcie, ilość się zwiększa).
+<li><b>Edytuj pozycję...</b> zmienia oznaczenia, ilość, ilość zamówioną, priorytet i uwagi.
+<li><b>Wydaj z magazynu...</b> zdejmuje wybraną ilość ze stanu (zapis w historii jako wydanie dla tego projektu); <b>Wydaj wszystko dostępne</b>
+    robi to dla całej listy naraz.
+<li><b>Lista zakupów (CSV)...</b> zapisuje to, czego brakuje (z uwzględnieniem tego, co już zamówiono), w formacie czytelnym dla polskiego Excela.
+</ul>
+<h2><a name=pole-oznaczenia>Oznaczenia</a></h2>
+Oznaczenia części ze schematu, np. <tt>R1, R2, R5-R7</tt>. Pole jest informacyjne, ale przy imporcie jest wypełniane automatycznie.
+<h2><a name=pole-potrzebna>Potrzebna ilość</a></h2>
+Ile sztuk wymaga projekt. Brakująca ilość to potrzebna minus już wydana minus dostępna w magazynie.
+<h2><a name=pole-zamowiono>Już zamówiono</a></h2>
+Ile sztuk jest zamówionych, ale jeszcze nieodebranych. Ta liczba jest odejmowana od braków na liście zakupów (jeśli zaznaczysz opcję
+<i>Odejmij już zamówione</i> w <a href=#zestawienie>zestawieniu</a>).
+<h2><a name=pole-priorytet-pozycji>Priorytet pozycji</a></h2>
+Liczba od 1 do 10, gdzie 1 oznacza część najważniejszą. Służy do porządkowania listy.
+<h2><a name=pole-uwagi>Uwagi</a></h2>
+Dowolna notatka do pozycji, np. wskazująca dopuszczalny zamiennik.
+
+<a name=import-bom>
+<h1>Import listy części z KiCada i Eagle'a</h1>
+<tt>Projekty / Importuj listę części</tt> (<tt>Ctrl+I</tt>) wczytuje listę części do wybranego projektu.
+<h2><a name=import-kicad>KiCad</a></h2>
+Raport BOM w CSV (<tt>Plik / Wytwórz / Lista materiałowa</tt>) albo netlista XML. Samego pliku schematu <tt>.kicad_sch</tt> (KiCad 6 i nowszy) program
+nie wczytuje, więc wyeksportuj BOM albo netlistę.
+<h2><a name=import-eagle>Eagle</a></h2>
+Plik schematu <tt>.sch</tt> (wprost z Eagle'a, także 7.6) albo CSV wyeksportowany skryptem BOM. Z pliku <tt>.sch</tt> program
+bierze oznaczenia, wartości i obudowy; części z atrybutem <tt>DNP</tt> (nie montować) są pomijane.
+<h2><a name=import-dopasowanie>Dopasowanie do magazynu</a></h2>
+<ul>
+<li>Pozycje o tej samej wartości i obudowie są łączone, części oznaczone <tt>DNP</tt> lub <i>nie montować</i> pomijane.
+<li>Dla każdej pozycji program proponuje element z magazynu (ten sam symbol albo ta sama wartość i obudowa).
+    <b>Zielone</b> = istniejący element, <b>niebieskie</b> = zostanie utworzony nowy (ze stanem 0), <b>szare</b> = pominięte.
+    Wybór można zmienić przyciskami pod listą, zanim cokolwiek zostanie zapisane.
+<li><b>Liczba płytek</b> mnoży ilości. <b>Zastąp obecną listę</b> czyści pozycje, z których jeszcze nic nie wydano.
+<li>Ponowny import tego samego pliku zwiększa ilości, nie dubluje elementów.
+</ul>
+
+<a name=eagle>
+<h1>Współpraca z Eagle CAD 7.6</h1>
+Program współpracuje z Eagle w obie strony.
+<h2><a name=eagle-import>Z Eagle do programu</a></h2>
+Do importu listy części można wskazać bezpośrednio schemat <tt>.sch</tt> (<a href=#import-bom>Import listy części</a>). Wygodniejsza bywa lista z atrybutami MPN i producenta:
+wybierz <tt>Projekty / Program ULP dla Eagle</tt>, zapisz plik <tt>dm_bom.ulp</tt>, w edytorze schematu uruchom go (<tt>File / Run ULP</tt>), w oknie wybierz wariant, typ listy (części / wartości) i format <b>DomowyMagazyn CSV</b>, kliknij <i>Zapisz</i>, a powstały plik zaimportuj jak każdą listę części. Program powstał na bazie standardowego <tt>bom.ulp</tt> z Eagle'a (warianty montażu, atrybuty); MPN i producent są brane z atrybutów <tt>MPN</tt> i <tt>MANUFACTURER</tt>.
+<h2><a name=eagle-eksport>Z programu do Eagle</a></h2>
+<tt>Projekty / Skrypt atrybutów dla Eagle</tt> zapisuje plik <tt>.scr</tt> dla wybranego projektu. Po wykonaniu go w edytorze schematu (<tt>File / Execute Script</tt>)
+części oznaczone w liście projektu dostają atrybuty <tt>DM_SYMBOL</tt>, <tt>DM_STAN</tt>, <tt>DM_MIEJSCE</tt>, <tt>MPN</tt> i <tt>MANUFACTURER</tt>.
+Dzięki temu w Eagle widać, czy część jest w magazynie i gdzie leży. Atrybuty są zapisywane bez polskich znaków, bo Eagle 7 ich nie obsługuje.
+
+<a name=raporty>
+<h1>Raporty</h1>
+<tt>Raporty / Raporty...</tt> (<tt>Ctrl+R</tt>). Dostępne raporty:
+<ul>
+<li><b>Stan magazynu</b> z wartością,
+<li><b>Niskie stany</b> z ilością do zamówienia,
+<li><b>Wartość magazynu</b> wg kategorii głównych,
+<li><b>Braki w projektach</b>,
+<li><b>Historia zmian stanów</b> z zakresem dat <tt>RRRR-MM-DD</tt>.
+</ul>
+Raport widać w tabeli. Zapisz go jako CSV (do Excela), jako HTML albo kliknij <b>Otwórz do wydruku / PDF</b>, co otwiera
+go w przeglądarce, gdzie można wydrukować go lub zapisać jako PDF. Wartości liczone są tylko dla elementów z podaną ceną.
+
+<a name=etykiety>
+<h1>Etykiety z kodem kreskowym</h1>
+<tt>Magazyn / Drukuj etykiety z kodem kreskowym</tt> (<tt>Ctrl+P</tt>) drukuje etykiety dla zaznaczonego elementu albo dla wszystkich elementów z bieżącej
+listy. Na etykiecie jest symbol, wartość i obudowa, producent oraz kod kreskowy z numerem elementu.
+<h2><a name=etykiety-formaty>Formaty arkuszy</a></h2>
+A4 3x8, 3x7, 5x13, 2x4 oraz etykiety pojedyncze 50x25 i 62x29 mm. <b>Zacznij od etykiety nr</b> pozwala dokończyć częściowo zużyty arkusz;
+przesunięcia korygują położenie wydruku. Na początek wydrukuj próbę z ramkami na zwykłym papierze.
+<h2><a name=etykiety-wydruk>Podgląd i wydruk</a></h2>
+<b>Podgląd wydruku</b> i <b>Drukuj</b> korzystają z systemowego okna drukowania (tam też <i>Zapisz jako PDF</i>); <b>Zapisz jako PNG</b> zapisuje
+strony jako obrazy.
+<h2><a name=skanowanie>Skanowanie kodów</a></h2>
+<ul>
+<li>Skaner USB (działa jak klawiatura): kliknij pole <i>Szukaj</i> i zeskanuj etykietę. Kod z Twoim prefiksem od razu pokazuje element.
+<li><tt>Magazyn / Znajdź element po zdjęciu kodu...</tt> odczytuje kod z pliku obrazu, np. zdjęcia etykiety zrobionego telefonem.
+<li>Podgląd na żywo z kamery komputera nie jest jeszcze zrealizowany.
+</ul>
+
+<a name=sklepy>
+<h1>Sklepy, ceny i datasheety</h1>
+Menu <tt>Sklepy</tt>. <b>Po aktualizacji programu</b> wybierz <tt>Baza danych / Utwórz / zaktualizuj strukturę bazy</tt>.
+<h2><a name=lista-sklepow>Lista sklepów</a></h2>
+<tt>Ctrl+Shift+S</tt>. <b>Dodaj / Zmień / Usuń</b> sklep. Sklep użyty w linkach elementów nie jest kasowany, tylko wyłączany.
+<h2><a name=pole-nazwa-sklepu>Nazwa sklepu</a></h2>
+Jedyne wymagane pole. Przy wczytywaniu listy sklep o tej samej nazwie jest aktualizowany.
+<h2><a name=pole-adres-sklepu>Adres strony</a></h2>
+Adres strony głównej sklepu, np. <tt>https://sklep.pl</tt>.
+<h2><a name=pole-szablon>Adres wyszukiwania</a></h2>
+Adres wyszukiwarki sklepu, w którym szukaną frazę zastępuje <tt>{q}</tt>, np. <tt>https://sklep.pl/szukaj?q={q}</tt>. Każdy nowy element dostaje
+automatycznie linki wyszukiwania do głównych sklepów. Adresy sklepów startowych nie były sprawdzane na działających stronach:
+popraw je, jeśli sklep zmienił wyszukiwarkę.
+<h2><a name=pole-kraj>Kraj</a></h2>
+Kraj sklepu. Informacja pomocnicza.
+<h2><a name=pole-waluta-sklepu>Waluta sklepu</a></h2>
+Trzyliterowy kod waluty cen w sklepie (PLN, EUR, USD...). Ceny w obcych walutach są w zestawieniach przeliczane według
+<a href=#kursy>kursów</a>.
+<h2><a name=pole-dostawa>Koszt dostawy</a></h2>
+Koszt standardowej dostawy w walucie sklepu. Używany w <a href=#zestawienie>najtańszym zestawieniu</a>.
+<h2><a name=pole-darmowa>Darmowa dostawa od</a></h2>
+Wartość zamówienia, od której dostawa jest darmowa. Puste pole oznacza, że dostawa jest płatna zawsze.
+<h2><a name=pole-wzorzec>Wzorzec ceny</a></h2>
+Pole zaawansowane. Wyrażenie regularne z jedną grupą w nawiasie, które wyciąga cenę z kodu strony produktu, np. <tt>cena-brutto">([0-9 ,.]+)</tt>.
+Potrzebne tylko wtedy, gdy sklep nie podaje ceny w danych strukturalnych (zob. <a href=#sprawdzanie-cen>Sprawdzanie cen</a>).
+<h2><a name=pole-priorytet-sklepu>Priorytet sklepu</a></h2>
+Od 1 (najchętniej) w górę. Przy równych cenach program wybiera sklep o niższym numerze.
+<h2><a name=sklepy-import>Wczytywanie listy sklepów</a></h2>
+<b>Wczytaj listę...</b> pozwala wkleić wiele sklepów naraz (jeden w wierszu, pola oddzielone średnikiem lub tabulatorem, także wprost z Excela):
+<pre>nazwa; adres strony; adres wyszukiwania; waluta; dostawa; darmowa od</pre>
+Można też wczytać plik albo wstawić bieżącą listę, poprawić ją i wczytać z powrotem.
+<h2><a name=kursy>Kursy walut</a></h2>
+<b>Kursy walut...</b>: ile złotych kosztuje jednostka waluty (<tt>USD = 4,05</tt>). Kursy wpisuje się ręcznie, program nie pobiera ich z internetu.
+Domyślne wartości są tylko przykładowe, <b>zaktualizuj je</b>.
+<h2><a name=linki>Sklepy elementu</a></h2>
+<tt>Sklepy / Sklepy, ceny i datasheet wybranego elementu</tt> (<tt>Ctrl+K</tt>). Żeby program mógł sprawdzać ceny, wklej w <b>Zmień...</b> adres strony samego produktu
+(przycisk <b>Szukaj w sklepie</b> otwiera wyniki wyszukiwania w przeglądarce). Cenę można też wpisać ręcznie.
+<h2><a name=pole-url-linku>Adres produktu</a></h2>
+Adres strony produktu w sklepie (nie wyszukiwarki). Z tej strony program odczytuje cenę.
+<h2><a name=pole-kod-sklepu>Kod w sklepie</a></h2>
+Numer katalogowy produktu w tym sklepie, pomocny przy zamawianiu.
+<h2><a name=pole-minimum-zakupu>Minimalna ilość</a></h2>
+Najmniejsza liczba sztuk, jaką sprzedaje sklep. <a href=#zestawienie>Zestawienie</a> nigdy nie planuje zakupu poniżej tej ilości.
+<h2><a name=sprawdzanie-cen>Sprawdzanie cen</a></h2>
+<b>Sprawdź ceny wszystkich / zaznaczony</b>: program pobiera strony po jednej, z przerwą, <b>tylko na Twoje polecenie</b>. Cenę szuka w
+danych strukturalnych strony (JSON-LD schema.org, znaczniki <tt>product:price:amount</tt>, <tt>itemprop="price"</tt>); dla sklepu, który ich nie podaje,
+ustaw <a href=#pole-wzorzec>wzorzec ceny</a>. Program niczego nie zgaduje z przypadkowych liczb na stronie. Zmiany cen trafiają do historii
+(<b>Historia cen...</b>).
+<h2><a name=datasheet>Datasheet</a></h2>
+<ul>
+<li><b>Otwórz</b>: plik z katalogu dokumentów albo adres w przeglądarce.
+<li><b>Pobierz z adresu...</b>: sprawdza, że to naprawdę PDF; plik trafia do katalogu z Ustawień i ma nazwę z symbolu elementu.
+<li><b>Znajdź na stronach sklepów</b>: szuka odnośników do PDF na stronach linków elementu.
+<li><b>Szukaj w internecie...</b>: Google, Octopart i AllDatasheet w przeglądarce.
+</ul>
+<h2><a name=zestawienie>Najtańsze zestawienie zakupów</a></h2>
+<tt>Ctrl+Shift+Z</tt>. Zestawia braki wybranego projektu (albo wszystkich aktywnych) i rozdziela je między sklepy:
+<ul>
+<li><b>Najniższa suma z dostawą</b>: uwzględnia koszt dostawy i progi darmowej dostawy, więc czasem opłaca się kupić całość w jednym sklepie,
+    choć pojedyncze części są tam droższe; okno pokazuje, ile oszczędza łączenie zakupów,
+<li><b>Najniższe ceny części</b>: każda część tam, gdzie jest najtańsza,
+<li><b>Wszystko w jednym sklepie</b>.
+</ul>
+Pozycje bez ceny w żadnym sklepie są wypisane osobno. <b>Sprawdź aktualne ceny</b> odświeża ceny potrzebnych części. Wynik można skopiować jako listę zamówień
+(sklep, ilość x symbol) albo zapisać do CSV i HTML.
+<h2><a name=sklepy-ograniczenia>Ograniczenia</a></h2>
+Programu nie sprawdzano na prawdziwych sklepach (sklepy często blokują automatyczne zapytania i zmieniają strony), dlatego wzorce i adresy
+są do ustawienia. Wiele sklepów podaje cenę dopiero po zalogowaniu albo dynamicznie (JavaScript), czego program nie odczyta. Wtedy wpisz cenę ręcznie.
+
+<a name=ustawienia>
+<h1>Ustawienia aplikacji</h1>
+<tt>Ustawienia / Ustawienia aplikacji...</tt>
+<h2><a name=pole-folder-obrazkow>Folder obrazków</a></h2>
+Katalog, do którego program kopiuje zdjęcia elementów.
+<h2><a name=pole-folder-pdf>Folder PDF</a></h2>
+Katalog z pobranymi datasheetami. Nazwy plików powstają z symboli elementów.
+<h2><a name=pole-typ-kodu>Typ kodu</a></h2>
+EAN-13, EAN-8 lub Code128. Kody służą tylko do własnego oznaczania elementów. Code128 jest dobrym wyborem, gdy skaner go obsługuje.
+<h2><a name=pole-prefiks>Prefiks kodu</a></h2>
+Liczba na początku numeru kodu (domyślnie 20), po której program rozpoznaje własne kody podczas <a href=#skanowanie>skanowania</a>.
+W kodach EAN prefiksy 20-29 są przeznaczone do użytku wewnętrznego, więc nie kolidują z kodami towarów ze sklepów.
+<h2><a name=pole-czcionka>Czcionka</a></h2>
+Czcionka tekstów na etykietach: nazwa, rozmiar i styl. Podgląd poniżej pokazuje efekt.
+
+<a name=aktualizacje>
+<h1>Aktualizacje programu</h1>
+Menu <tt>Pomoc / Sprawdź aktualizacje...</tt> pobiera z internetu mały plik z numerem najnowszej wersji i porównuje go z wersją zainstalowaną.
+Gdy jest nowsza, program pokazuje numer, opis zmian i pyta, czy otworzyć stronę pobierania. <b>Niczego nie instaluje sam.</b>
+Opcja <tt>Sprawdzaj aktualizacje przy uruchomieniu</tt> (włączona domyślnie) robi to po cichu, najwyżej raz dziennie; gdy nie ma sieci albo
+nowszej wersji, nie pokazuje żadnych komunikatów. Przy sprawdzaniu program łączy się wyłącznie z serwerem, na którym leży ten plik (domyślnie GitHub).
+<h2><a name=aktualizacje-wydanie>Jak wydać nową wersję (dla autora)</a></h2>
+W repozytorium leży plik <tt>DomowyMagazyn/wersja.txt</tt>. Pierwsza linia to numer (np. <tt>1.0.1</tt>), opcjonalna druga linia z adresem
+zaczynającym się od <tt>http</tt> to strona pobierania, a reszta to opis zmian. Po opublikowaniu nowych instalatorów zmień ten plik i wyślij go do repozytorium.
+Inny adres pliku można wpisać w <tt>config.ini</tt>: sekcja <tt>[aktualizacje]</tt>, klucz <tt>adres</tt>.
+
+<a name=skroty>
+<h1>Klawiatura</h1>
+<table border=1 cellspacing=0 cellpadding=4>
+<tr><td><tt>F1</tt></td><td>pomoc (w polu formularza: opis tego pola)</td></tr>
+<tr><td><tt>Ctrl+L</tt></td><td>połącz z bazą</td></tr>
+<tr><td><tt>Ctrl+N</tt> / <tt>Ctrl+E</tt> / <tt>Ctrl+T</tt></td><td>nowy element / edytuj / zmień stan</td></tr>
+<tr><td><tt>Delete</tt></td><td>usuń zaznaczony element lub kategorię</td></tr>
+<tr><td><tt>F2</tt></td><td>zmień nazwę kategorii</td></tr>
+<tr><td><tt>Ctrl+Shift+N</tt></td><td>nowa kategoria główna</td></tr>
+<tr><td><tt>Ctrl+F</tt></td><td>szukaj</td></tr>
+<tr><td><tt>F5</tt></td><td>odśwież</td></tr>
+<tr><td><tt>Ctrl+Shift+E</tt></td><td>eksport listy do CSV</td></tr>
+<tr><td><tt>Ctrl+P</tt></td><td>etykiety</td></tr>
+<tr><td><tt>Ctrl+I</tt></td><td>import listy części</td></tr>
+<tr><td><tt>Ctrl+R</tt></td><td>raporty</td></tr>
+<tr><td><tt>Ctrl+Shift+S</tt></td><td>lista sklepów</td></tr>
+<tr><td><tt>Ctrl+K</tt></td><td>sklepy, ceny i datasheet elementu</td></tr>
+<tr><td><tt>Ctrl+Shift+Z</tt></td><td>najtańsze zestawienie</td></tr>
+<tr><td><tt>Ctrl+Q</tt></td><td>zakończ</td></tr>
+</table>
+<table><tr><td valign="top"><b>macOS</b></td><td valign="middle">Zamiast <tt>Ctrl</tt> używaj klawisza <tt>Cmd</tt>.</td></tr></table>
+
+<a name=problemy>
+<h1>Rozwiązywanie problemów</h1>
+<h2><a name=problem-polaczenie>Nie można połączyć z bazą</a></h2>
+Sprawdź w <a href=#polaczenie>ustawieniach połączenia</a> adres, port i hasło. Serwer PostgreSQL musi zezwalać na połączenia
+z tego komputera (<tt>listen_addresses</tt> w <tt>postgresql.conf</tt> oraz wpis w <tt>pg_hba.conf</tt>), a zapora nie może blokować portu.
+<h2><a name=problem-wersja>Program zgłasza, że struktura bazy jest nieaktualna</a></h2>
+Wybierz <a href=#struktura>Utwórz / zaktualizuj strukturę bazy</a>. Dane nie są przy tym kasowane.
+<h2><a name=problem-ceny>Program nie znajduje ceny w sklepie</a></h2>
+Sprawdź, czy w linku jest adres strony samego produktu, a nie wyszukiwarki. Jeśli strona nie podaje ceny w danych strukturalnych, ustaw
+<a href=#pole-wzorzec>wzorzec ceny</a> sklepu albo wpisz cenę ręcznie.
+<h2><a name=problem-polskie>Polskie znaki w CSV wyglądają źle w Excelu</a></h2>
+Pliki CSV z programu są w UTF-8 z BOM i średnikiem jako separatorem i powinny otwierać się poprawnie przez dwukrotne kliknięcie.
+Jeśli używasz opcji <i>Dane / Z tekstu</i>, wybierz kodowanie UTF-8 i separator średnik.
+
+</body>
+</html>

@@ -1,0 +1,243 @@
+## PRIORYTET 1 - DZIAŁAJĄCA PODSTAWA
+- [x] Utworzenie struktury projektu
+- [x] Skompilować minimalną wersję z GUI
+- [x] Połączenie z bazą danych PostgreSQL
+- [x] Okno główne z menu
+- [x] Dialog konfiguracji połączenia
+- [x] Zapisywanie konfiguracji do pliku
+- [x] Implementacja modułu bazy danych
+- [x] Podstawowa struktura tabel
+- [x] Funkcje i triggery w bazie danych
+
+## PRIORYTET 2 - PODSTAWOWE FUNKCJE
+- [x] Drzewo kategorii
+- [x] Lista elementów
+- [x] Formularz dodawania/edycji elementu
+- [x] Wyszukiwanie elementów
+- [x] Import kategorii startowych
+- [x] Eksport do CSV
+
+## PRIORYTET 3 - ZAAWANSOWANE FUNKCJE
+- [x] Import BOM z Eagle/KiCad
+- [x] Zarządzanie projektami
+- [x] Raportowanie
+- [x] Drukowanie etykiet
+- [x] Integracja z kamerą (skaner USB, odczyt kodu ze zdjęcia, zdjęcia elementów, podgląd na żywo i zdjęcie z kamery USB przez OpenCV, zdjęcie elementu w panelu po prawej; do sprawdzenia na prawdziwej kamerze w Windows i na Macu)
+- [x] Wyszukiwanie datasheet (strony sklepów, serwisy w przeglądarce, pobieranie PDF)
+- [x] Sprawdzanie cen w sklepach (JSON-LD, meta, itemprop, wzorzec sklepu), lista sklepów, kursy walut
+- [x] Najtańsze zestawienie zakupów (z dostawą, progami darmowej dostawy, jeden sklep)
+- [x] Przy wprowadzaniu elementu powinna być możliwość dopisania miejsca magazynowania np Kontener 1 szufladka A1/1(A1 oznaczenie szuflady/przegroda o ile jest, moze być samo A1 bez przegrody)
+- [x] Import z csv całego zestawu rezystorów, kondensatorów, dławików, tranzystorów itp.(np. w szergu E24, E48, E96, trzeba okrelić symbol,wartość, tolerancję, obudowę, ilość i co tam potrzeba dla pól tabeli)
+
+## PRIORYTET 4 - ZAAWANSOWANE FUNKCJE
+- [x] Plik pomocy html i obsługa w programie (pomoc/pomoc_pl.htm w układzie Eagle 7.6, okno pomocy w programie, otwieranie w przeglądarce).(Coś na wzór Eagle 7.6) Plik na wzór mogę udostepnić gdy będzie realizowany ten punkt.
+- [x] Pomoc kontekstowa F1 dla pola (opisy w tabeli tbl_pomoc_pol, źródło pomoc/pola.txt) w dowolnym formularzu o wprowadzanych danych. (jeśli potrzeba opisy do dymków też mogą być w tabeli bazy)
+- [x] Dla pól wyświetlających dane po najechaniu myszką w dymku informacje o danych. Podobnie jak wyżej.
+- [x] Ikona dla aplikacji oraz ikony w menu z zestawu najlepiej pasującego funkcjonalnie. Opis poniżej w sekcji: Najważniejsze informacje o zestawie:  (własny zestaw 19 ikon rysowany skryptem narzedzia/zbuduj_ikony.py, wkompilowany w program)
+
+## PRIORYTET 5 - OPCJONALNE
+- [x] Mechanizm sprawdzania nowej wersji (Pomoc / Sprawdź aktualizacje; plik DomowyMagazyn/wersja.txt w repozytorium GitHub; sprawdzane w teście na lokalnym serwerze, na prawdziwym GitHubie jeszcze nie)
+- [ ] Tłumaczenia (pliki .po)
+- [ ] Pakiet DEB
+- [ ] Dokumentacja
+- [~] Menu narzędzia - Dekoder kolorów pasków na rezystorach, dławikach itp. Możesz sam zaproponować rozwój i przydatne funkcje tutaj na podstawie forów, opisów prowadzonych przez ludzi. Chciałbym ten program sobie maksymalnie zintegrowqać z Eagle Cad 7.6  (zrobione: dekoder pasków i kodów SMD, Ctrl+D; integracja z Eagle: skrypt .scr z atrybutami części i program ULP do listy części; do sprawdzenia w prawdziwym Eagle 7.6; do zrobienia: dalsze narzędzia, np. biblioteka .lbr z magazynu)
+- [ ] Testy jednostkowe
+
+## UWAGI I POMYSŁY
+- Używać polskich nazw dla funkcji i zmiennych w kodzie C++
+- Implementować logikę w oddzielnych modułach
+- Zapewnić wsparcie dla polskich znaków
+- Przygotować strukturę pod tłumaczenia
+
+Info o zestawach ikon z AI:
+Zestaw ikon Crystal najczęściej odnosi się do klasycznego pakietu Crystal Project Icons (oraz wcześniejszych Crystal i Crystal Clear) stworzonego przez brazylijskiego projektanta Everaldo Coelho.
+
+## Najważniejsze informacje o zestawie:
+
+• Twórca: Everaldo Coelho / Yellowicon
+• Styl: Przejrzyste, błyszczące ikony o charakterystycznym, półprzezroczystym i zaokrąglonym wyglądzie, które stały się legendą środowisk Linux/KDE oraz systemów Unix.
+• Liczba ikon: Około 1317 ikon w głównym pakiecie Crystal Project (oraz 1187 w Crystal Clear).
+• Rozdzielczości: Dostępne w wielu wariantach rozmiarowych od 16x16 do 256x256 pikseli (formaty PNG i ICO).
+• Licencja: GNU Lesser General Public License (LGPL) – darmowe do użytku prywatnego i komercyjnego (z wymogiem uznania autorstwa).
+• Gdzie pobrać: Archiwa i pliki można znaleźć na stronach takich jak SoftIcons - Crystal Project Icons oraz w repozytoriach społecznościowych (np. adaptacje typu Crystal Remix dla nowszych pulpitów Linuxa).
+Uwaga: W sklepach z aplikacjami (np. Google Play) pod nazwą Crystal Glass Icon Pack występują też współczesne, komercyjne pakiety ikon w stylu glassmorphism dedykowane dla nowoczesnego systemu Android i nakładek typu Nova Launcher.
+Szukasz tego zestawu pod konkretny system (np. Linux / KDE, Windows, czy Android)? Daj znać, a podpowiem, jak go zainstalować.
+Odpowiedzi wygenerowane przez AI mogą zawierać błędy. Więcej informacji
+• 
+Google Play
+Crystal Glass Icon Pack – Aplikacje w Google Play
+Pakiet ikon Crystal Glass nada Twojemu urządzeniu czysty i futurystyczny wygląd. Najważniejsze funkcje: • Ponad 900 ikon z kryszta...
+• 
+Wikimedia Commons
+Category:Crystal icons - Wikimedia Commons
+English : Crystal icons are the first version of a style of drawing computer icons and buttons, started by Everaldo Coelho for Lin...
+• 
+SoftIcons.com
+Icon Sets by Everaldo Coelho - SoftIcons.com
+Icon Sets by Everaldo Coelho. Crystal Clear Icons (1187 icons) Author: Everaldo Coelho Posted: June 26, 2011. Crystal Project Icon...
+Pokaż wszystkie
+
+Twoje słowa: A czy jest podobny darmowy zestaw ikon?
+
+A czy jest podobny darmowy zestaw ikon?
+10:21
+Tak, sam oryginalny zestaw Crystal jest darmowy, ale jeśli szukasz innych bezpłatnych pakietów ikon utrzymanych w podobnej, klasycznej estetyce przełomu lat 2000. (błyszczący plastik, żywe kolory, trójwymiarowość, styl Web 2.0), istnieje kilka legendarnych alternatyw z tamtej ery, które również są darmowe.
+Oto najlepsze bezpośrednie alternatywy o zbliżonym charakterze, które można pobrać bez opłat:
+
+1. Zestawy w stylu retro/skeuomorphic (jak Crystal)
+
+• Oxygen Icon Theme: Oficjalny następca ery Crystal w środowisku KDE Plasma. Ikony posiadają charakterystyczne, miękkie cienie, gładkie gradienty i delikatnie błyszczącą powłokę. Wyglądają bardzo profesjonalnie i są w pełni darmowe (licencja LGPL) – do pobrania m.in. z GitHub KDE Oxygen Icons.
+• Nuvola: Stworzony przez Davida Vignoni zestaw o nieco bardziej rysunkowym (cartoon-like) i pastelowym zacięciu, ale wciąż z charakterystycznym dla Web 2.0 połyskiem. Jest w 100% darmowy (licencja LGPL) i niezwykle popularny. Całą bazę można przeglądać w sekcji Wikimedia Commons Nuvola Icons.
+• Tango Desktop Project: Kolejna ikona tamtych lat. Choć styl Tango jest bardziej płaski i kładzie nacisk na czyste kontury oraz stonowane barwy, to idealnie odwzorowuje strukturę i klimat dawnych interfejsów. Zestaw przeszedł do domeny publicznej (Public Domain) i jest dostępny np. na OpenGameArt Tango Icons.
+
+2. Współczesne darmowe alternatywy (Szkło i Gradienty)
+
+Jeśli projektujesz stronę internetową lub aplikację i zależy Ci na darmowych ikonach, które łączą "szklany" efekt dawnego Crystal z nowoczesnym wyglądem, sprawdź te darmowe platformy:
+• Flaticon (kategoria 3D / Gradient / Glassmorphism): Największy zbiór w sieci. Wpisując w wyszukiwarkę hasła takie jak "3D" lub "Glassmorphism", znajdziesz setki darmowych, wielokolorowych i błyszczących pakietów ikon (wymagana jest jedynie darmowa atrybucja/podanie autora).
+• Icons8 (styl "Color" lub "Plumpy"): Serwis oferuje ogromny pakiet darmowych ikon w stylu Color lub trójwymiarowym. Są one kolorowe, pełne blasku i świetnie zastępują starsze zestawy interfejsowe. Wiele z nich pobierzesz bezpośrednio z Icons8.
+Do jakiego konkretnego zastosowania potrzebujesz tych ikon (pulpit systemowy, aplikacja czy strona WWW)?
+Odpowiedzi wygenerowane przez AI mogą zawierać błędy. Więcej informacji
+• 
+ShopGadget
+Skąd brać ikony do szablonów i aplikacji Shoper ...
+Remix Icon. https://remixicon.com/. Popularny zestaw ikon często używany w interfejsach webowych i aplikacjach. około 3200+ ikon b...
+• 
+GitHub
+Oxygen icon theme - KDE - GitHub
+Oxygen Icons is a freedesktop.org compatible icon theme originally developed for the KDE Plasma desktop environment in combination...
+• 
+️ Ranking kreatorów stron WWW
+Skąd wziąć ikony na stronę? 14 najlepszych źródeł w 2026 roku
+Najlepsze darmowe źródła ikon to Flaticon (ponad 14 milionów ikon), Font Awesome (1,7 miliona, integracja CSS), Google Material Ic...
+Pokaż wszystkie
+
+Twoje słowa: I to są takie duże zestawy po prawie 1500 ikon?
+
+I to są takie duże zestawy po prawie 1500 ikon?
+10:22
+Nie, nie wszystkie darmowe zestawy w tym stylu są aż tak ogromne. Pod względem skali wymienione wcześniej pakiety mocno się od siebie różnią.
+Liczba około 1300–1500 ikon w oryginalnym Crystal Project wynikała z tego, że był on projektowany jako kompletne środowisko graficzne – musiał zawierać ikony dla każdego rozszerzenia pliku, folderu systemowego, urządzenia oraz akcji w menu aplikacji.
+Rozmiary poszczególnych darmowych zestawów retro wyglądają następująco:
+
+1. Mniejsze zestawy (do 600 ikon)
+
+Te pakiety skupiają się wyłącznie na najważniejszych programach i podstawowych funkcjach systemu, przez co brakuje im ikon do rzadszych zastosowań:
+• Nuvola: Zawiera około 600 ikon. Jest piękny, ale z uwagi na mniejszy rozmiar, przy stosowaniu go jako motywu systemowego niektóre rzadsze pliki będą wyświetlane za pomocą ikon domyślnych.
+• Tango Desktop Project: Oficjalna bazowa biblioteka to zaledwie nieco ponad 200 ikon. Tango miało być jedynie wzorcem i standardem dla innych programistów, stąd jego niewielki rozmiar w czystej wersji.
+
+2. Duże zestawy (około 900 - 1500+ ikon)
+
+Jeśli potrzebujesz czegoś o skali zbliżonej do Crystal, musisz szukać rozbudowanych projektów środowiskowych:
+• Oxygen Icon Theme: W podstawowej wersji zawiera około 880 ikon, jednak jako oficjalny pakiet systemowy KDE rozrósł się z czasem do gigantycznych rozmiarów (liczonych w tysiącach plików wliczając różne warianty i rozmiary), w pełni dorównując lub nawet przewyższając Crystal.
+• Fugue Icons: Choć ma nieco inny styl (to malutkie ikony pikselowe 16x16 z tamtej epoki), to jest to absolutny rekordzista retro – darmowy pakiet zawiera aż 3000 ikon.
+
+Współczesny trik: Nowoczesne darmowe bazy danych
+
+Jeśli tworzysz nową aplikację lub stronę internetową i potrzebujesz spójnego zestawu liczącego tysiące pozycji, stare ikony systemowe mogą okazać się zbyt ubogie lub trudne do wdrożenia technicznie (brak formatów webowych jak SVG).
+Współczesne w pełni darmowe biblioteki open-source bez problemu przekraczają te liczby:
+• Tabler Icons / Phosphor Icons: Oferują od 1200 do ponad 5000 ikon w jednym stylu, w pełni pokrywając zapotrzebowanie każdego projektu.
+• Flaticon / Icons8: Oferują miliony ikon, ale jeśli filtrujesz je po konkretnym autorze lub darmowej kolekcji (np. w stylu trójwymiarowym), pojedyncze pakiety liczą zazwyczaj od 100 do 500 ikon.
+Czy tak duża liczba ikon (ponad 1000) jest Ci potrzebna do podmiany wyglądu całego systemu operacyjnego, czy szukasz konkretnych grafik do własnego projektu / programu?
+Odpowiedzi wygenerowane przez AI mogą zawierać błędy. Więcej informacji
+• 
+www.mkbergman.com
+Noteworthy Icon Libraries for Projects and Web Mapping
+The Crystal set of more than 1300 … divided into the categories of actions, apps, files systems, devices and mime types.
+• 
+Wikipedia
+Nuvola - Wikipedia
+Nuvola is a free software icon set … it is also available in packages for Windows and Mac. an SVG version is also available.
+• 
+Icon Archive
+Oxygen Iconpack (883 icons) | Oxygen Team
+Oxygen Icons Pack. Icon Actions: Address book, application exit, appointment, single/double arrows … formatting, and game configur...
+Pokaż wszystkie
+
+Twoje słowa: Buduję aplikację w wxWidget. Ma to być aplikacja domowego magazynu części elektronicznych.
+
+Buduję aplikację w wxWidget. Ma to być aplikacja domowego magazynu części elektronicznych.
+10:24
+To świetny projekt! Budowa domowego magazynu części elektronicznych w wxWidgets (C++) wymaga specyficznych ikon (np. rezystory, diody, układy scalone, szafki, szuflady). Ponieważ tworzysz aplikację desktopową w wxWidgets, kluczowe są dwa aspekty: liczba ikon (aby objąć różne kategorie podzespołów) oraz wygoda techniczna wdrażania ich w kodzie C++.
+Oto najlepsze, darmowe i ogromne zestawy ikon, które idealnie pasują do aplikacji tego typu i świetnie współpracują z wxWidgets:
+
+1. Król desktopowego retro: Zestaw FamFamFam Silk (ok. 1000 ikon)
+
+To absolutna legenda estetyki przełomu lat 2000. Chociaż ikony mają rozmiar 16x16 pikseli, są niesamowicie czytelne, kolorowe i mają lekki połysk, przez co idealnie wpisują się w klimat aplikacji narzędziowych, bazodanowych i magazynowych.
+• Dlaczego warto: Zawiera mnóstwo ikon technicznych, strzałek, pudełek, komponentów interfejsu (zapisz, dodaj, usuń) i symboli baz danych.
+• Licencja: Darmowa, Creative Commons Attribution 2.5 (wymaga jedynie dopisku o autorze w oknie „O programie”).
+• Pobieranie: GitHub – markjames/famfamfam-silk-icons.
+• Wersja SVG: Istnieje też projekt famfamfam-silk-svg, który przerysował cały ten zestaw do formatu wektorowego, więc możesz ich używać w dowolnym rozmiarze!
+
+2. Gotowe rozwiązanie dla C++: wxMaterialDesignArtProvider (tysiące ikon)
+
+Jeśli nie chcesz ręcznie ładować plików PNG/SVG z dysku do kodu aplikacji, to jest to najlepsze możliwe rozwiązanie programistyczne. Jest to zewnętrzna, darmowa biblioteka napisana specjalnie dla wxWidgets.
+• Jak to działa: Klasa wxMaterialDesignArtProvider integruje się z systemem wxArtProvider. Cały zestaw ikon (Material Design, FontAwesome, FluentUI, SimpleIcons) jest zaszyty bezpośrednio w nagłówkach C++ jako kod. Nie musisz rozprowadzać plików graficznych z aplikacją!
+• Dlaczego pasuje do elektroniki: Dzięki bazie SimpleIcons oraz FontAwesome uzyskujesz dostęp do tysięcy ikon technicznych, marek, schematów oraz narzędzi, a ikony renderują się idealnie w każdej rozdzielczości (skalowanie DPI) dzięki wxBitmapBundle.
+• Licencja: Apache 2.0 / MIT (w pełni darmowa, również komercyjnie).
+• Repozytorium: GitHub – perazz/wxMaterialDesignArtProvider.
+
+3. Open Icon Library (ponad 10 000 ikon)
+
+To gigantyczny, darmowy agregat, który zebrał ikony z projektów takich jak Tango, Oxygen, Crystal, DejaVu i wielu innych w jedno miejsce.
+• Dlaczego warto: Znajdziesz tam ogromną sekcję "Hardware", "Devices" oraz "Actions". Z łatwością wyciągniesz stamtąd ikony kabli, płytek drukowanych, chipów czy narzędzi warsztatowych.
+• Formaty: Udostępnia pliki jako PNG, ICO oraz SVG.
+
+💡 Wskazówki techniczne dla programisty wxWidgets:
+
+1. Używaj wxBitmapBundle (Dla wydań wxWidgets 3.2+): Nowoczesne monitory mają wysokie zagęszczenie pikseli (HiDPI). Zamiast sztywnego ładowania pojedynczych grafik PNG przy użyciu wxBitmap, ładuj ikony wektorowe SVG przez wxBitmapBundle::FromSVGFile() lub wxBitmapBundle::FromSVG(). Dzięki temu ikony będą ostre jak brzytwa zarówno na starym monitorze, jak i na ekranie 4K.
+2. Pakowanie ikon do pliku wykonywalnego (Windows / MSW): Jeśli decydujesz się na ikony w plikach, osadź je w pliku zasobów .rc (np. jako wxBITMAP lub ICON), aby użytkownik końcowy nie mógł ich przypadkowo skasować z folderu aplikacji.
+Czy zdecydowałeś się już na konkretną wersję wxWidgets (np. 3.2+) oraz język (czyste C++ czy np. wxPython)? Mogę pomóc Ci przygotować przykładowy kod C++, który pokazuje, jak prawidłowo i nowocześnie załadować ikonę SVG w interfejsie aplikacji, tak aby automatycznie skalowała się do ekranów HiDPI.
+Odpowiedzi wygenerowane przez AI mogą zawierać błędy. Więcej informacji
+• 
+GitHub
+GitHub - markjames/famfamfam-silk-icons: 999 16-by-16 pixel PNG Creative Commons icon set · GitHub
+Repository: markjames/famfamfam-silk-icons. PNG icons located in the icons folder, Author/Creator: Mark James http://www.famfamfam...
+• 
+GitHub
+GitHub - Simandara/famfamfam-silk-svg: A recreation of the iconic iconset of the 2010’s era from Mark James, remade in SVG and as a figma UI kit for today’s developpers and designers needs. · GitHub
+A recreation of the iconic iconset of the 2010’s era from Mark James, remade in SVG … ~1000 scalable SVG icons, mixable with decor...
+• 
+IconVectors
+SVG Icons in wxWidgets C++ - IconVectors
+FromSVG / FromSVGFile need wxWidgets 3.1. 6+ (3.2 or later recommended) built with SVG support; NanoSVG is bundled, so no extra de...
+Pokaż wszystkie
+
+Twoje słowa: Kod już jest gotowy, trzeba tylko pomyśleć o grafice aplikacji.
+
+Kod już jest gotowy, trzeba tylko pomyśleć o grafice aplikacji.
+10:27
+Skoro kod aplikacji jest gotowy, wybór odpowiedniej oprawy graficznej to kluczowy krok, by Twój domowy magazyn był nie tylko funkcjonalny, ale i przyjemny dla oka. W przypadku aplikacji narzędziowej do elektroniki, grafika pełni bardzo ważną funkcję: pomaga błyskawicznie odróżnić od siebie typy komponentów (np. rezystor od kondensatora czy mikrokontrolera).
+Oto 3 konkretne kierunki graficzne (wraz z pakietami darmowych ikon), które idealnie pasują do architektury wxWidgets i bazy części elektronicznych:
+
+🧭 Opcja 1: Klasyczne "Techniczne Desktop" (Styl retro/szkło/plastik)
+
+Jeśli kod pisałeś z myślą o klasycznym, gęstym interfejsie z wieloma ikonami na paskach narzędziowych (Toolbar) oraz drzewkach (TreeCtrl).
+• Pakiety: Wspomniany wcześniej legendarny FamFamFam Silk SVG lub Crystal Remix (dostosowany do współczesnych ekranów).
+• Wizerunek aplikacji: Aplikacja będzie wyglądać profesjonalnie i nostalgicznie – jak klasyczne, potężne programy inżynieryjne z lat 2000. (np. dawne wersje Eagle, Altium czy programatory pamięci).
+• Zaleta dla elektroniki: Bardzo łatwo znaleźć ikony typu: szafka, szuflada, zielona/czerwona dioda, złącze, chip (układ scalony), klucz, śrubokręt czy piorun (napięcie).
+
+📱 Opcja 2: "Modern Engineering" (Styl płaski, wektorowy, minimalistyczny)
+
+Jeśli chcesz, aby aplikacja wyglądała nowocześnie, przypominając design współczesnego systemu Windows 11 lub środowiska VS Code.
+• Pakiety: Lucide Icons, Tabler Icons lub Phosphor Icons. Wszystkie są w 100% darmowe (licencja MIT) i zawierają tysiące ikon SVG.
+• Wizerunek aplikacji: Interfejs stanie się czysty, minimalistyczny i niezwykle czytelny. Te zestawy mają genialne sekcje techniczne.
+• Przykłady ikon, które tam znajdziesz: Rezystor, kondensator, cewka, tranzystor, układ scalony (CPU/Chip), antena, bateria, płytka drukowana (PCB) oraz ikony bazodanowe.
+
+🏭 Opcja 3: Ikony dedykowane inżynierii i elektronice
+
+Istnieją darmowe pakiety ikon stworzone specjalnie z myślą o aplikacjach naukowych, CAD i hardware.
+• Pakiet: KDE Breeze Icons (z sekcji urządzeń/akcji) lub Material Design Icons (MDI) – wersja rozszerzona, która posiada dedykowane tagi dla komponentów elektronicznych (szukaj ikon z prefiksami microcontroller, resistor, capacitor, integrated-circuit).
+• Wizerunek aplikacji: Maksymalna precyzja. Zamiast uniwersalnej ikony "pudełka" dla tranzystora, możesz użyć ikony, która faktycznie przypomina obudowę TO-92 lub symbol schematyczny.
+
+🎨 Szybki check-list przed wdrożeniem grafik do wxWidgets:
+
+1. Dopasowanie do Trybu Ciemnego (Dark Mode): Jeżeli Twoja aplikacja wspiera tryb ciemny w systemie (lub zamierzasz go dodać), płaskie ikony SVG (Opcja 2) są najwygodniejsze. Za pomocą prostego skryptu Pythona lub narzędzia do masowej edycji tekstowej możesz w plikach SVG podmienić kolor linii (np. z czarnego #000000 na biały #FFFFFF), tworząc drugą paczkę ikon dla trybu nocnego. Przy ikonach rastrowych (PNG/Crystal) zmiana kolorów jest znacznie trudniejsza.
+2. Struktura folderów zasobów: Podziel pobrane ikony na logiczne podfoldery w swoim projekcie (np. /icons/ui/ dla przycisków typu zapisz/usuń oraz /icons/components/ dla podzespołów: rezystory, diody itp.). Ułatwi to zarządzanie nimi w kodzie, zwłaszcza przy mapowaniu typów części z bazy danych do konkretnych identyfikatorów ikon.
+Który kierunek wizualny najbardziej pasuje do Twojego interfejsu: klasyczne, kolorowe desktop retro (jak Crystal/Silk) czy nowoczesny, czysty minimalizm (jak Lucide/Tabler)? Mogę pomóc Ci namierzyć konkretne, brakujące ikony schematów elektronicznych dla wybranego stylu.
+
+
+- [x] Katalog elementów elektronicznych (zakładka Katalog, schemat v6): pozycje z parametrami, import/eksport CSV, powiązanie z magazynem po symbolu, "Z katalogu..." w formularzu elementu, dodawanie do magazynu, dane katalogowe w podglądzie elementu.
+- [~] Odczyt datasheetu do bazy: program czyta tekst PDF (pdftotext) i PROPONUJE parametry (napięcie zasilania, temperatura, obudowa, piny, prąd, częstotliwość, moc, opis); użytkownik zatwierdza. Skanów (PDF bez tekstu) nie czyta; tabele złożone mogą dać błędne propozycje. Do zrobienia: więcej wzorców, OCR.
+- [x] Narzędzia: kalkulatory (Ctrl+Shift+K): dzielnik napięcia z doborem rezystorów z szeregu, rezystor do LED, filtr RC (fc, τ, dobór R lub C).
+- [x] Pakiet DEB: narzedzia/zbuduj_deb.sh (zależności z dpkg-shlibdeps, menu, ikony, konfiguracja użytkownika w ~/.config/DomowyMagazyn). Sprawdzone: instalacja i start na Ubuntu 24.04. Do zrobienia: reguły Debiana/PPA, jeśli kiedyś potrzebne.
+- [~] Instalatory: zbuduj_instalator.sh (deb | windows | macos). DEB sprawdzony; Windows (ZIP + NSIS) i macOS (.app + .dmg) napisane, ale do przetestowania na prawdziwych systemach.

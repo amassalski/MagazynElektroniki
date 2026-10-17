@@ -1,0 +1,738 @@
+#include "EksportEagle.h"
+#include "../Import/ImportBOM.h"
+
+#include <map>
+
+namespace EksportEagle {
+
+std::string tekstDlaEagle(const std::string& s) {
+    static const std::map<std::string, std::string> pl = {
+        {"ą", "a"}, {"ć", "c"}, {"ę", "e"}, {"ł", "l"}, {"ń", "n"}, {"ó", "o"}, {"ś", "s"}, {"ź", "z"}, {"ż", "z"},
+        {"Ą", "A"}, {"Ć", "C"}, {"Ę", "E"}, {"Ł", "L"}, {"Ń", "N"}, {"Ó", "O"}, {"Ś", "S"}, {"Ź", "Z"}, {"Ż", "Z"},
+        {"µ", "u"}, {"Ω", "R"}, {"±", "+-"}, {"°", "deg"}};
+    std::string w;
+    for (size_t i = 0; i < s.size();) {
+        const unsigned char c = static_cast<unsigned char>(s[i]);
+        if (c < 0x80) {
+            if (c == '\'') w += "\\'";
+            else if (c == '\n' || c == '\r' || c == '\t') w += ' ';
+            else if (c >= 32) w += static_cast<char>(c);
+            ++i;
+            continue;
+        }
+        const size_t dl = c >= 0xF0 ? 4 : c >= 0xE0 ? 3 : 2;
+        const auto it = pl.find(s.substr(i, dl));
+        w += it != pl.end() ? it->second : "?";
+        i += dl;
+    }
+    return w;
+}
+
+WynikSkryptu skrypt(const std::vector<PozycjaProjektu>& pozycje, const std::string& nazwaProjektu) {
+    WynikSkryptu w;
+    std::string& t = w.tekst;
+    t += "# DomowyMagazyn: atrybuty czesci projektu " + tekstDlaEagle(nazwaProjektu) + "\n";
+    t += "# Uruchom w edytorze schematu: File / Execute Script...\n";
+    for (const PozycjaProjektu& p : pozycje) {
+        const std::vector<std::string> oznaczenia = ImportBOM::rozbijOznaczenia(p.oznaczenia);
+        if (oznaczenia.empty()) {
+            w.bezOznaczen.push_back(p.symbol);
+            continue;
+        }
+        for (const std::string& o : oznaczenia) {
+            const std::string nazwa = tekstDlaEagle(o);
+            auto atrybut = [&](const char* klucz, const std::string& wartosc) {
+                if (!wartosc.empty()) t += "ATTRIBUTE " + nazwa + " " + klucz + " '" + tekstDlaEagle(wartosc) + "';\n";
+            };
+            atrybut("DM_SYMBOL", p.symbol);
+            atrybut("MPN", p.symbolProducenta);
+            atrybut("MANUFACTURER", p.producent);
+            atrybut("DM_MIEJSCE", p.miejsce);
+            t += "ATTRIBUTE " + nazwa + " DM_STAN '" + std::to_string(p.dostepna) + "';\n";
+            ++w.czesci;
+        }
+    }
+    if (!w.bezOznaczen.empty()) {
+        t += "# Pominiete pozycje bez oznaczen:";
+        for (const std::string& s : w.bezOznaczen) t += " " + tekstDlaEagle(s);
+        t += "\n";
+    }
+    return w;
+}
+
+std::string ulpBOM() {
+    return R"ULP(#require 6.5100
+
+// DomowyMagazyn: lista czesci z Eagle'a do pliku CSV.
+//
+// Program powstal na bazie standardowego bom.ulp z Eagle'a 7.x (autorzy: CadSoft, Carsten Wille,
+// Christian Schlittler), z zachowaniem jego okna, wariantow montazu i atrybutow. Dodano format
+// "DomowyMagazyn CSV": kolumny Reference;Value;Package;MPN;Manufacturer;Description;Qty,
+// ktore rozpoznaje Projekty / Importuj liste czesci w DomowyMagazyn.
+// MPN i producent sa brane z atrybutow czesci MPN i MANUFACTURER (patrz skrypt atrybutow z DomowyMagazyn;
+// zapasowo DM_SYMBOL i MF). Plik jest celowo napisany bez polskich znakow (Eagle ich nie lubi).
+//
+// THIS PROGRAM IS PROVIDED AS IS AND WITHOUT WARRANTY OF ANY KIND, EXPRESSED OR IMPLIED
+
+string Version = "2.00";
+
+char   Separator = ';';
+
+#usage "en: <b>Export a parts list for DomowyMagazyn</b>\n"
+           "<p>"
+           "Generates the project's <i>Bill Of Material</i>. The <b>DomowyMagazyn CSV</b> format can be loaded in DomowyMagazyn "
+           "(Projects / Import parts list). Based on the standard bom.ulp."
+           "<p>"
+           "<author>Based on bom.ulp by support@cadsoft.de, Carsten Wille, Christian Schlittler</author>",
+       "pl: <b>Eksport listy czesci dla DomowyMagazyn</b>\n"
+           "<p>"
+           "Generuje <i>liste materialowa</i> projektu. Format <b>DomowyMagazyn CSV</b> mozna wczytac w programie DomowyMagazyn "
+           "(Projekty / Importuj liste czesci). Oparte na standardowym bom.ulp."
+           "<p>"
+           "<author>Na bazie bom.ulp: support@cadsoft.de, Carsten Wille, Christian Schlittler</author>"
+
+string HelpTextEN =
+  "<b>How to generate the Bill Of Material</b>\n"
+  "<p>\n"
+  "<b>List type</b>\n"
+  "<p>\n"
+  "The list can be generated either as a list of parts (every part on a line of its own),\n"
+  "or as a list of values, where all parts with the same value, package, MPN and manufacturer\n"
+  "are grouped in one line.\n"
+  "<p>\n"
+  "<b>Output format</b>\n"
+  "<p>\n"
+  "<b>DomowyMagazyn CSV</b> is the format read by DomowyMagazyn (Projects / Import parts list).\n"
+  "Columns: Reference;Value;Package;MPN;Manufacturer;Description;Qty.\n"
+  "MPN and manufacturer come from the part attributes MPN and MANUFACTURER.\n"
+  "The other formats are the plain <b>Text</b>, general <b>CSV</b> and <b>HTML</b> lists of the standard bom.ulp.\n"
+  ;
+
+string HelpTextPL =
+  "<b>Jak wygenerowac liste materialowa</b>\n"
+  "<p>\n"
+  "<b>Typ listy</b>\n"
+  "<p>\n"
+  "Lista moze byc lista czesci (kazda czesc w osobnym wierszu) albo lista wartosci, gdzie czesci o tej samej\n"
+  "wartosci, obudowie, MPN i producencie sa zebrane w jednym wierszu.\n"
+  "<p>\n"
+  "<b>Format wyjsciowy</b>\n"
+  "<p>\n"
+  "<b>DomowyMagazyn CSV</b> to format wczytywany przez program DomowyMagazyn (Projekty / Importuj liste czesci).\n"
+  "Kolumny: Reference;Value;Package;MPN;Manufacturer;Description;Qty.\n"
+  "MPN i producent pochodza z atrybutow czesci MPN i MANUFACTURER.\n"
+  "Pozostale formaty to zwykly <b>Tekst</b>, ogolny <b>CSV</b> i <b>HTML</b> ze standardowego bom.ulp.\n"
+  ;
+
+string I18N[] = {
+  "en\v"
+  "pl\v"
+,
+"<hr><b>ERROR: No schematic!</b><p>\nThis program can only work in the schematic editor.\v"
+"<hr><b>BLAD: Brak schematu!</b><p>\nTen program dziala tylko w edytorze schematow.\v"
+,
+"Part\tValue\tDevice\tPackage\tDescription\v"
+"Czesc\tWartosc\tUrzadzenie\tObudowa\tOpis\v"
+,
+"Qty\tValue\tDevice\tPackage\tParts\v"
+"Ilosc\tWartosc\tUrzadzenie\tObudowa\tCzesci\v"
+,
+"Partlist exported from %s at %s\v"
+"Lista czesci wyeksportowana z %s dnia %s\v"
+,
+"Bill Of Material - Preview\v"
+"Lista materialowa - Podglad\v"
+,
+"-Close\v"
+"-Zamknij\v"
+,
+"Save Bill Of Material\v"
+"Zapisz liste materialowa\v"
+,
+"File '\v"
+"Plik '\v"
+,
+"' exists\n\nOverwrite?\v"
+"' juz istnieje\n\nCzy nadpisac?\v"
+,
+"+&Yes\v"
+"+&Tak\v"
+,
+"-&No\v"
+"-&Nie\v"
+,
+"Bill Of Material - Help\v"
+"Lista materialowa - Pomoc\v"
+,
+"Bill Of Material\v"
+"Lista materialowa\v"
+,
+"List type\v"
+"Typ listy\v"
+,
+"&Parts\v"
+"&Czesci\v"
+,
+"&Values\v"
+"&Wartosci\v"
+,
+"Output format\v"
+"Format wyjsciowy\v"
+,
+"&DomowyMagazyn CSV\v"
+"&DomowyMagazyn CSV\v"
+,
+"&Text\v"
+"&Tekst\v"
+,
+"&CSV\v"
+"&CSV\v"
+,
+"&HTML\v"
+"&HTML\v"
+,
+"+Vie&w\v"
+"+&Podglad\v"
+,
+"&Save...\v"
+"&Zapisz...\v"
+,
+"H&elp\v"
+"P&omoc\v"
+,
+"Current &variant \v"
+"Biezacy &wariant \v"
+,
+"List &attributes\v"
+"Wymien &atrybuty\v"
+,
+"Parts saved: \v"
+"Zapisano czesci: \v"
+};
+int Language = strstr (I18N [0], language ()) / 3;
+
+
+string tr (string s)
+{
+  string t = lookup (I18N, s, Language, '\v');
+  return t ? t : s;
+}
+
+if (!schematic)
+{
+  dlgMessageBox (usage + tr ("<hr><b>ERROR: No schematic!</b><p>\nThis program can only work in"
+                 " the schematic editor."));
+  exit (1);
+}
+
+string SeparatorString;
+int     NumParts;
+numeric string Lines[];
+numeric string PartName[];
+string  PartValue[], PartDevice[], PartPackage[], PartHeadline[];
+string  PartMPN[], PartMfr[];
+int     Selected;
+
+string CurrentVariant = "";
+string Variants[] = { "" };
+int    cntVD = 0;
+int    VDsel = 0;
+
+// Attributes of an arbitrary number of names (used by the text, CSV and HTML formats).
+int UseAttributes = 1;
+int FoundAttributes = 0;            // # of different attribute names found in schematic.
+numeric string AttributesList[];    // Sorted list of all attributes found in the schematic.
+numeric string PartAttributes[];    // Adjusted list of attributes per part.
+
+enum { ltParts, ltValues };         // List Types
+enum { ofDM, ofText, ofCSV, ofHTML };   // Output Formats (the same order as the radio buttons)
+int ListType = 0;
+int OutputFormat = 0;               // DomowyMagazyn CSV by default
+
+
+string FirstNonEmpty (string a, string b)
+{
+  return a != "" ? a : b;
+}
+
+
+// Collect part data from the schematic.
+void CollectPartData (string var)
+{
+  int Found = 0;
+  int i;
+  string attr[];
+
+  NumParts = 0;
+
+  // First, collect the names of all available attributes.
+  FoundAttributes = 0;
+  if (UseAttributes) {
+    schematic (SCH)
+    {
+      SCH.allparts (P)
+      {
+        if (P.device.package)
+        {
+          if (P.populate)
+          {
+            P.attributes (A)
+            {
+              if (0 == FoundAttributes)
+              {
+                AttributesList[0] = A.name;
+                FoundAttributes = 1;
+              }
+              else
+              {
+                Found = 0;
+                for (i = 0; i < FoundAttributes; i ++)
+                {
+                  if (A.name == AttributesList[i])
+                  {
+                    Found = 1;
+                    break;
+                  }
+                }
+                if (0 == Found)
+                {
+                  AttributesList[FoundAttributes] = A.name;
+                  FoundAttributes ++;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    sort (FoundAttributes, AttributesList);
+  }
+  // Second, collect all data
+  schematic (SCH)
+  {
+    SCH.allparts (P)
+    {
+      if (P.device.package)
+      {
+        if (P.populate)
+        {
+          PartName[NumParts] = P.name;
+          PartValue[NumParts] = P.value;
+          PartDevice[NumParts] = P.device.name;
+          PartPackage[NumParts] = P.device.package.name;
+          PartHeadline[NumParts] = P.device.headline;
+          PartMPN[NumParts] = FirstNonEmpty (P.attribute["MPN"], P.attribute["DM_SYMBOL"]);
+          PartMfr[NumParts] = FirstNonEmpty (P.attribute["MANUFACTURER"], P.attribute["MF"]);
+          for (i = 0; i < FoundAttributes; i ++)
+            attr[i] = "";
+          P.attributes(A)
+          {
+            for (i = 0; i < FoundAttributes; i ++)
+              if (A.name == AttributesList[i])
+              {
+                attr[i] = A.value;
+                break;
+              }
+          }
+          PartAttributes[NumParts] = strjoin(attr, Separator);
+          NumParts ++;
+        }
+      }
+    }
+  }
+}
+
+
+void GeneratePartList(void)
+{
+  int NumLines = 0;
+  string attr[], s;
+
+  if (UseAttributes) s = strjoin(AttributesList, '\t');
+  Lines[NumLines ++] = tr ("Part\tValue\tDevice\tPackage\tDescription\t") + s;
+  for (int i = 0; i < NumParts; i ++)
+  {
+    strsplit (attr, PartAttributes[i], Separator);
+    if (UseAttributes) s = strjoin(attr, '\t');
+    Lines[NumLines] = PartName[i] + "\t" + PartValue[i] + "\t" + PartDevice[i] + "\t" +
+                       PartPackage[i] + "\t" + PartHeadline[i] + "\t" + s;
+    NumLines ++;
+  }
+  Lines[NumLines] = "";
+}
+
+
+// Generate list with one entry per value.
+void GenerateValueList (void)
+{
+  int NumLines = 0;
+  int Index [];
+  string attr[], s;
+
+  if (UseAttributes) s = strjoin(AttributesList, '\t');
+
+  Lines[NumLines ++] = tr ("Qty\tValue\tDevice\tPackage\tParts\tDescription\t") + s;
+  sort (NumParts, Index, PartValue, PartDevice, PartPackage, PartAttributes, PartName, PartHeadline);
+  for (int n1 = 0, n2 = 0; ++ n2 <= NumParts; )
+  {
+    int i1 = Index [n1];
+    strsplit (attr, PartAttributes[i1], Separator);
+    if (UseAttributes) s = strjoin(attr, '\t');
+    if (n2 < NumParts)
+    {
+      int i2 = Index [n2];
+      strsplit (attr, PartAttributes[i2], Separator);
+      if (PartValue[i1] == PartValue[i2] && PartDevice[i1] == PartDevice[i2] && PartAttributes[i1] == PartAttributes[i2])
+        continue;
+    }
+    string Quantity;
+    sprintf (Quantity, "%d", n2 - n1);
+    Lines[NumLines] = Quantity + "\t" + PartValue[i1] + "\t" + PartDevice[i1] + "\t" + PartPackage[i1] + "\t";
+    for (;;)
+    {
+      Lines[NumLines] += PartName[i1];
+      if (++n1 < n2)
+      {
+        i1 = Index [n1];
+        Lines[NumLines] += ", ";
+      }
+      else
+        break;
+    }
+    Lines[NumLines] += "\t" + PartHeadline[i1] + "\t" + s;
+    NumLines ++;
+  }
+  Lines[NumLines] = "";
+}
+
+
+void GenerateList (void)
+{
+  switch (ListType)
+  {
+    case ltParts:  GeneratePartList (); break;
+    case ltValues: GenerateValueList (); break;
+  }
+}
+
+
+string MakeListHeader (void)
+{
+  string s;
+  schematic(SCH)
+    sprintf (s, tr ("Partlist exported from %s at %s"), SCH.name, t2string (time ()));
+  return s;
+}
+
+
+string MakeListText(void)
+{
+  int l, Width [];
+  string List;
+  int numHeaders;
+
+  for (l = 0; Lines[l]; l ++)
+  {
+    string a [];
+    for (int n = strsplit (a, Lines[l], '\t'); n --; )
+      Width [n] = max (Width [n], strlen (a [n]));
+  }
+
+  List = MakeListHeader () + "\n\n";
+
+  for (l = 0; Lines[l]; l ++)
+  {
+    string line, a [];
+
+    int n = strsplit (a, Lines[l], '\t');
+    if (l == 0)
+      numHeaders = n;
+    else
+      n = numHeaders;
+    for (int i = 0; i < n; i ++)
+    {
+      string s;
+
+      sprintf (s, "%s%-*s", line ? " " : "", Width [i], a [i]);
+      line += s;
+    }
+    List += line + "\n";
+  }
+  return List;
+}
+
+
+// Make separated list, with all values double-quoted.
+string MakeListCSV (void)
+{
+  string List;
+  int numHeaders;
+
+  for (int l = 0; Lines[l]; l ++)
+  {
+    string a [];
+    int n = strsplit (a, Lines[l], '\t');
+    if (l == 0)
+      numHeaders = n;
+    else
+      n = numHeaders;
+    for (int i = 0; i < n; i ++)
+      List += "\"" + a[i] + "\"" + SeparatorString;
+    List += "\n";
+  }
+  return List;
+}
+
+
+// Double-quoted CSV field; a quote inside the text is doubled.
+string CsvField (string s)
+{
+  string r = "\"";
+  for (int i = 0; i < strlen (s); i ++)
+  {
+    string c = strsub (s, i, 1);
+    r += (c == "\"") ? "\"\"" : c;
+  }
+  r += "\"";
+  return r;
+}
+
+
+string CsvRow (string ref, string value, string pkg, string mpn, string mfr, string desc, string qty)
+{
+  return CsvField (ref) + SeparatorString + CsvField (value) + SeparatorString + CsvField (pkg) + SeparatorString +
+         CsvField (mpn) + SeparatorString + CsvField (mfr) + SeparatorString + CsvField (desc) + SeparatorString +
+         CsvField (qty) + "\n";
+}
+
+
+// Format read by DomowyMagazyn: Reference;Value;Package;MPN;Manufacturer;Description;Qty
+string MakeListDM (void)
+{
+  string List = CsvRow ("Reference", "Value", "Package", "MPN", "Manufacturer", "Description", "Qty");
+  int Index [];
+
+  if (ListType == ltParts)
+  {
+    for (int i = 0; i < NumParts; i ++)
+      List += CsvRow (PartName[i], PartValue[i], PartPackage[i], PartMPN[i], PartMfr[i], PartHeadline[i], "1");
+  }
+  else
+  {
+    sort (NumParts, Index, PartValue, PartPackage, PartMPN, PartMfr, PartName);
+    for (int n1 = 0, n2 = 0; ++ n2 <= NumParts; )
+    {
+      int i1 = Index [n1];
+      if (n2 < NumParts)
+      {
+        int i2 = Index [n2];
+        if (PartValue[i1] == PartValue[i2] && PartPackage[i1] == PartPackage[i2] &&
+            PartMPN[i1] == PartMPN[i2] && PartMfr[i1] == PartMfr[i2])
+          continue;
+      }
+      string Quantity, Refs;
+      sprintf (Quantity, "%d", n2 - n1);
+      Refs = "";
+      for (;;)
+      {
+        Refs += PartName[i1];
+        if (++n1 < n2)
+        {
+          i1 = Index [n1];
+          Refs += ", ";
+        }
+        else
+          break;
+      }
+      List += CsvRow (Refs, PartValue[i1], PartPackage[i1], PartMPN[i1], PartMfr[i1], PartHeadline[i1], Quantity);
+    }
+  }
+  return List;
+}
+
+
+string MakeListHTML (void)
+{
+  string List;
+  int numHeaders;
+
+  List = "<b>" + MakeListHeader() + "</b>\n<p>\n";
+  List += "<table>\n";
+  for (int l = 0; Lines[l]; l++)
+  {
+    List += "<tr>";
+    string a [];
+    int n = strsplit (a, Lines[l], '\t');
+    if (l == 0)
+      numHeaders = n;
+    else
+      n = numHeaders;
+    for (int i = 0; i < n; i ++)
+    {
+      if (l == 0)
+        a[i] = "<b>" + a[i] + "</b>";
+      List += "<td>" + a[i] + "</td>";
+    }
+    List += "</tr>\n";
+  }
+  List += "</table>\n";
+  return List;
+}
+
+
+string MakeList (void)
+{
+  switch (OutputFormat)
+  {
+    case ofDM:   return MakeListDM(); break;
+    case ofText: return MakeListText(); break;
+    case ofCSV:  return MakeListCSV(); break;
+    case ofHTML: return MakeListHTML(); break;
+  }
+  return "";
+}
+
+
+void ViewList (void)
+{
+  dlgDialog (tr ("Bill Of Material - Preview"))
+  {
+    string s = MakeList ();
+    if (OutputFormat != ofHTML)
+      s = "<pre>" + s + "</pre>";
+    dlgHBoxLayout dlgSpacing (400);
+    dlgHBoxLayout
+    {
+      dlgVBoxLayout dlgSpacing (300);
+      dlgTextView (s);
+    }
+    dlgHBoxLayout
+    {
+      dlgStretch (1);
+      dlgPushButton (tr ("-Close")) dlgReject ();
+    }
+  };
+}
+
+
+void SaveList (void)
+{
+  string FileName;
+  string FileExt;
+
+  switch (OutputFormat)
+  {
+    case ofDM:   FileExt = ".csv"; break;
+    case ofText: FileExt = ".txt"; break;
+    case ofHTML: FileExt = ".html"; break;
+    case ofCSV:  FileExt = ".csv"; break;
+  }
+  schematic(SCH) FileName = filesetext (SCH.name, FileExt);
+  FileName = dlgFileSave (tr ("Save Bill Of Material"), FileName);
+  if (FileName)
+  {
+    string a [];
+    if (!fileglob (a, FileName) || dlgMessageBox (tr ("File '") + FileName +
+        tr ("' exists\n\nOverwrite?"), tr("+&Yes"), tr("-&No")) == 0)
+    {
+      output (FileName, "wt")
+      {
+        printf ("%s", MakeList ()); // using "%s" to avoid problems if the list contains any '%'
+      }
+      string Info = NumParts + "\n" + FileName;   // int + string rzutuje sie sam (sprawdzone w Eagle)
+      dlgMessageBox (tr ("Parts saved: ") + Info);
+    }
+  }
+}
+
+
+void DisplayHelp(void)
+{
+  string helpText;
+
+  if (language() == "pl")
+    helpText = HelpTextPL;
+  else
+    helpText = HelpTextEN;
+
+  dlgDialog(tr("Bill Of Material - Help"))
+  {
+    dlgHBoxLayout dlgSpacing(400);
+    dlgHBoxLayout
+    {
+      dlgVBoxLayout dlgSpacing(300);
+      dlgTextView(helpText);
+    }
+    dlgHBoxLayout
+    {
+      dlgStretch(1);
+      dlgPushButton(tr("-Close"))
+      dlgReject();
+    }
+  };
+}
+
+
+schematic(SCH) {
+  sprintf(SeparatorString, "%c", Separator);
+  CurrentVariant = variant();
+  SCH.variantdefs(VD) {
+    if (CurrentVariant == VD.name) VDsel = cntVD;
+    sprintf(Variants[cntVD], "%s", VD.name);
+    cntVD++;
+  }
+}
+
+setvariant(CurrentVariant);
+CollectPartData(CurrentVariant);
+GenerateList();
+
+dlgDialog (tr ("Bill Of Material"))
+{
+  dlgHBoxLayout {
+    dlgLabel(tr ("Current &variant "));
+    dlgComboBox(Variants, VDsel) {
+      CurrentVariant = Variants[VDsel];
+      setvariant(CurrentVariant);
+      CollectPartData(CurrentVariant);
+      GenerateList();
+    }
+    dlgStretch(1);
+  }
+  dlgListView ("", Lines, Selected);
+  dlgHBoxLayout
+  {
+    dlgGroup(tr ("List type"))
+    {
+      dlgRadioButton(tr ("&Parts"), ListType) GenerateList ();
+      dlgRadioButton(tr ("&Values"), ListType) GenerateList ();
+      dlgCheckBox(tr ("List &attributes"), UseAttributes) {
+        if (!UseAttributes) {
+          NumParts = 0;
+        }
+        CollectPartData(CurrentVariant);
+        GenerateList();
+      }
+    }
+    dlgGroup (tr ("Output format"))
+    {
+      dlgRadioButton(tr ("&DomowyMagazyn CSV"), OutputFormat);
+      dlgRadioButton(tr ("&Text"), OutputFormat);
+      dlgRadioButton(tr ("&CSV"), OutputFormat);
+      dlgRadioButton(tr ("&HTML"), OutputFormat);
+    }
+    dlgStretch(1);
+  }
+  dlgHBoxLayout  {
+    dlgPushButton (tr ("+Vie&w"))    ViewList ();
+    dlgPushButton (tr ("&Save...")) SaveList ();
+    dlgPushButton (tr ("H&elp"))    DisplayHelp ();
+    dlgPushButton (tr ("-Close"))   dlgAccept ();
+    dlgStretch(1);
+    dlgLabel("Version " + Version);
+  }
+};
+)ULP";
+}
+
+} // namespace EksportEagle

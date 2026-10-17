@@ -1,0 +1,112 @@
+# Opisy pól formularzy: dymki (po zatrzymaniu myszy) i klawisz F1.
+# Format: klucz <TAB> tytuł <TAB> opis <TAB> kotwica w pomocy
+# Wiersze zaczynające się od # są pomijane. Plik jest źródłem dla tabeli tbl_pomoc_pol
+# (sql/pomoc_pola.sql generuje narzedzia/zbuduj_pomoc.py).
+element.symbol	Symbol	Nazwa elementu, pod którą go znajdziesz, np. NE555P albo R-10K-0603-1%. Jedyne pole wymagane.	pole-symbol
+element.kategoria	Kategoria	Miejsce elementu w drzewie kategorii. Domyślnie kategoria zaznaczona przy dodawaniu.	pole-kategoria
+element.producent	Producent	Nazwa producenta. Biorą ją pod uwagę wyszukiwanie i etykieta.	pole-producent
+element.symbol_producenta	Symbol producenta	Oznaczenie katalogowe producenta. Biorą je pod uwagę wyszukiwanie i etykieta.	pole-producent
+element.opis	Opis	Dowolny opis: zastosowanie, uwagi, miejsce zakupu. Opis jest przeszukiwany.	pole-opis
+element.wartosc	Wartość	Wartość elementu, np. 10k, 100n, 4,7u. Wpisuj ją tak jak na schematach: po niej i obudowie dopasowywane są części przy imporcie z KiCada i Eagle'a.	pole-wartosc
+element.jednostka	Jednostka	Jednostka wartości, np. Ω, F, H, V.	pole-wartosc
+element.obudowa	Obudowa	Typ obudowy, np. 0603, SOIC-8, DIP-14, TO-220. Służy do dopasowania części z projektów.	pole-obudowa
+element.ilosc	Ilość	Ile sztuk masz teraz. Przy nowym elemencie zapisuje się jako przyjęcie, przy edycji zmiana trafia do historii jako korekta. Do zwykłych przyjęć i wydań użyj Ctrl+T.	pole-ilosc
+element.minimum	Stan minimalny	Poniżej tej liczby element jest wyróżniony na liście i trafia do raportu niskich stanów. 0 wyłącza ostrzeżenie.	pole-minimum
+element.cena	Cena jednostkowa	Cena jednej sztuki, z której liczona jest wartość magazynu. Niezależna od cen w sklepach.	pole-cena
+element.waluta	Waluta	Waluta ceny jednostkowej (PLN, EUR, USD...). Sumy w raportach są liczone osobno dla każdej waluty.	pole-cena
+element.datasheet	Datasheet	Adres internetowy karty katalogowej. PDF można też pobrać do katalogu dokumentów (Ctrl+K).	pole-datasheet
+element.zdjecie	Zdjęcie	Plik obrazu elementu. Przycisk Wybierz kopiuje go do katalogu zdjęć z Ustawień.	pole-zdjecie
+element.tolerancja	Tolerancja	Dopuszczalne odchylenie wartości, np. 1% albo 5%. Szereg E24 ma zwykle 5%, E48 2%, E96 1%.	pole-tolerancja
+element.parametry	Parametry	Pozostałe parametry techniczne jednym tekstem, np. „0,1 W; 50 V; X7R”. Pole jest przeszukiwane.	pole-tolerancja
+element.kontener	Kontener	Kontener lub szafka, w której leży element, np. Kontener 1. Można też wpisać cały zapis naraz, np. „Kontener 1 szufladka A1/1”: program sam rozdzieli go na kontener, szufladę i przegrodę. Podpowiada kontenery użyte wcześniej.	pole-miejsce
+element.szuflada	Szuflada	Oznaczenie szuflady, np. A1. Samo A1 wystarczy, kontener jest opcjonalny.	pole-miejsce
+element.przegroda	Przegroda	Przegroda w szufladzie (opcjonalnie), np. 1. Razem z szufladą daje A1/1.	pole-miejsce
+element.tagi	Tagi	Słowa kluczowe oddzielone przecinkami, np. smd, precyzyjny. Są przeszukiwane.	pole-tagi
+projekt.nazwa	Nazwa projektu	Nazwa projektu. Pole wymagane.	projekty-lista
+projekt.status	Status projektu	Planowany, w trakcie, wstrzymany lub zakończony. Zestawienie zakupów domyślnie pomija projekty zakończone.	pole-status-projektu
+projekt.opis	Opis projektu	Dowolna notatka o projekcie.	projekty-lista
+pozycja.element	Element	Element z magazynu, którego dotyczy pozycja.	pozycje
+pozycja.oznaczenia	Oznaczenia	Oznaczenia części ze schematu, np. R1, R2, R5-R7. Wypełniane automatycznie przy imporcie.	pole-oznaczenia
+pozycja.potrzebna	Potrzebna ilość	Ile sztuk wymaga projekt. Brakuje: potrzebna minus już wydana minus dostępna w magazynie.	pole-potrzebna
+pozycja.zamowiono	Już zamówiono	Ile sztuk zamówiono, a jeszcze nie odebrano. Można to odjąć od braków w zestawieniu zakupów.	pole-zamowiono
+pozycja.priorytet	Priorytet pozycji	Liczba 1-10; 1 oznacza część najważniejszą.	pole-priorytet-pozycji
+pozycja.uwagi	Uwagi	Dowolna notatka do pozycji, np. dopuszczalny zamiennik.	pole-uwagi
+sklep.nazwa	Nazwa sklepu	Nazwa sklepu. Pole wymagane. Przy wczytywaniu listy sklep o tej samej nazwie jest aktualizowany.	pole-nazwa-sklepu
+sklep.adres	Adres strony	Adres strony głównej sklepu, np. https://sklep.pl.	pole-adres-sklepu
+sklep.szablon	Adres wyszukiwania	Adres wyszukiwarki sklepu z {q} w miejscu szukanej frazy, np. https://sklep.pl/szukaj?q={q}.	pole-szablon
+sklep.kraj	Kraj	Kraj sklepu (informacja pomocnicza).	pole-kraj
+sklep.waluta	Waluta sklepu	Trzyliterowy kod waluty cen w sklepie. Obce waluty są przeliczane według kursów z listy sklepów.	pole-waluta-sklepu
+sklep.dostawa	Koszt dostawy	Koszt standardowej dostawy w walucie sklepu. Uwzględniany w najtańszym zestawieniu.	pole-dostawa
+sklep.darmowa	Darmowa dostawa od	Wartość zamówienia, od której dostawa jest darmowa. Puste: dostawa jest płatna zawsze.	pole-darmowa
+sklep.wzorzec	Wzorzec ceny	Zaawansowane: wyrażenie regularne z jedną grupą w nawiasie, które wyciąga cenę z kodu strony produktu. Potrzebne tylko wtedy, gdy strona nie podaje ceny w danych strukturalnych.	pole-wzorzec
+sklep.opis	Opis sklepu	Dowolna notatka o sklepie.	lista-sklepow
+sklep.priorytet	Priorytet sklepu	Od 1 (najchętniej) w górę. Przy równych cenach wygrywa sklep o niższym numerze.	pole-priorytet-sklepu
+sklep.aktywny	Sklep aktywny	Nieaktywne sklepy nie biorą udziału w zestawieniach zakupów.	lista-sklepow
+link.url	Adres produktu	Adres strony samego produktu w sklepie (nie wyszukiwarki). Z niej program odczytuje cenę.	pole-url-linku
+link.kod	Kod w sklepie	Numer katalogowy produktu w tym sklepie.	pole-kod-sklepu
+link.minimum	Minimalna ilość	Najmniejsza liczba sztuk sprzedawana przez sklep. Zestawienie nie planuje zakupu poniżej niej.	pole-minimum-zakupu
+polaczenie.host	Host	Adres serwera PostgreSQL, np. 192.168.1.10 albo localhost.	polaczenie
+polaczenie.port	Port	Port serwera PostgreSQL (domyślnie 5432).	polaczenie
+polaczenie.baza	Baza danych	Nazwa bazy, w której leży magazyn.	polaczenie
+polaczenie.uzytkownik	Użytkownik	Nazwa użytkownika PostgreSQL.	polaczenie
+polaczenie.haslo	Hasło	Hasło użytkownika. Zapamiętane w pliku konfiguracji jest przechowywane jako zwykły tekst.	polaczenie
+ustawienia.obrazki	Folder obrazków	Katalog, do którego program kopiuje zdjęcia elementów.	pole-folder-obrazkow
+ustawienia.pdf	Folder PDF	Katalog z pobranymi datasheetami. Nazwy plików powstają z symboli elementów.	pole-folder-pdf
+ustawienia.typ_kodu	Typ kodu	EAN-13, EAN-8 lub Code128. Kody służą tylko do własnego oznaczania elementów.	pole-typ-kodu
+ustawienia.prefiks	Prefiks kodu	Liczba na początku numeru kodu (domyślnie 20), po której program rozpoznaje własne kody przy skanowaniu.	pole-prefiks
+ustawienia.czcionka	Czcionka	Czcionka tekstów na etykietach: nazwa, rozmiar i styl.	pole-czcionka
+lista.elementy	Lista elementów	Kliknięcie nagłówka sortuje listę. Dwukrotne kliknięcie edytuje element. Ctrl+F szuka.	elementy
+lista.kategorie	Drzewo kategorii	Kategorie można przeciągać. F2 zmienia nazwę, Delete usuwa pustą kategorię.	kategorie
+lista.projekty	Lista projektów	Pomarańczowy projekt ma braki w magazynie.	projekty-lista
+lista.pozycje	Lista części projektu	Pomarańczowy wiersz: brakuje w magazynie. Zielony: wydano w całości.	pozycje
+szukaj	Szukaj	Szuka po symbolu, producencie, opisie, wartości, obudowie i tagach. Kilka słów: każde musi wystąpić.	wyszukiwanie
+import.duplikaty	Gdy symbol już jest	Co zrobić z elementem, którego symbol jest już w magazynie: pominąć go, dodać podaną ilość do stanu (z wpisem w historii) albo uzupełnić jego dane niepustymi polami (stan bez zmian).	import-elementow
+szereg.rodzaj	Rodzaj	Rezystory, kondensatory albo cewki. Zmiana rodzaju ustawia typowy zakres wartości.	generator-szeregow
+szereg.szereg	Szereg	Szereg wartości znormalizowanych IEC 60063: E6, E12, E24, E48 lub E96. Im wyższy, tym więcej wartości w dekadzie.	generator-szeregow
+szereg.od	Od	Najmniejsza wartość zakresu. Możesz pisać 4k7, 100n, 2M2 albo 10 kΩ.	generator-szeregow
+szereg.do	Do	Największa wartość zakresu (włącznie).	generator-szeregow
+szereg.tolerancja	Tolerancja	Tolerancja zapisana w każdym elemencie. Puste pole: wartość typowa dla szeregu (E12 10%, E24 5%, E48 2%, E96 1%).	generator-szeregow
+szereg.obudowa	Obudowa	Obudowa wszystkich elementów zestawu, np. 0603, 0805, THT. Wchodzi do symbolu i decyduje o domyślnej kategorii (SMD lub THT).	generator-szeregow
+szereg.moc	Moc	Dopuszczalna moc rezystorów, np. 0,1 W. Zapisywana w parametrach.	generator-szeregow
+szereg.napiecie	Napięcie	Napięcie pracy kondensatorów, np. 50 V. Zapisywane w parametrach.	generator-szeregow
+szereg.dielektryk	Dielektryk	Dielektryk kondensatorów ceramicznych, np. X7R, C0G. Zapisywany w parametrach.	generator-szeregow
+szereg.producent	Producent	Producent wpisywany do każdego elementu zestawu.	generator-szeregow
+szereg.ilosc	Ilość każdej	Stan początkowy każdej wartości. Zapisuje się w historii jako przyjęcie.	generator-szeregow
+szereg.minimum	Minimum	Minimalny stan każdej wartości, poniżej którego element trafia na listę braków.	generator-szeregow
+szereg.cena	Cena szt.	Cena sztuki, wspólna dla całego zestawu. Puste pole: bez ceny.	generator-szeregow
+szereg.wzor	Wzór symbolu	Wzór nazwy elementu z członami {typ} {rkm} {wartosc} {obudowa} {tol} {moc} {napiecie} {dielektryk}. Puste pole: wzór domyślny, np. R-4K7-0603-5%.	generator-szeregow
+szereg.kategoria	Kategoria	Ścieżka kategorii, np. Elementy bierne / Rezystory / SMD. Brakujące kategorie zostaną utworzone. Puste pole: kategoria domyślna dla rodzaju i obudowy.	generator-szeregow
+szereg.miejsce	Miejsce	Gdzie leży zestaw, np. Kontener 1 szufladka A1 albo A1/1.	generator-szeregow
+szereg.dekada	Szuflada na dekadę	Każda dekada wartości (10-99, 100-999, ...) trafia do kolejnej szuflady, licząc od podanej, np. A1, A2, A3.	generator-szeregow
+csv.plik	Plik CSV	Plik z elementami. Wymagana jest kolumna Symbol (albo Typ z Wartością). Separator (średnik, przecinek, tabulator) jest wykrywany.	import-elementow
+narzedzia.paski.liczba	Liczba pasków	Rezystory mają 3, 4, 5 lub 6 pasków. Przy 4 paskach są 2 cyfry, mnożnik i tolerancja, przy 5 trzy cyfry, a szósty pasek to współczynnik temperaturowy.	narzedzia-kody
+narzedzia.wartosc	Wartość rezystora	Wartość, dla której pokazać paski: 4k7, 330, 0,22, 2M2.	narzedzia-kody
+narzedzia.smd.kod	Kod SMD	Kod z obudowy: 472 (4,7 kΩ), 1002 (10 kΩ), 4R7, 01A (EIA-96), a dla kondensatorów 104 (100 nF).	narzedzia-kody
+podglad.kamera	Zdjęcie z kamery	Otwiera podgląd z kamery USB. Naciśnij „Zrób zdjęcie”, a potem „Użyj zdjęcia”: zdjęcie zostanie zapisane w katalogu zdjęć i przypisane do zaznaczonego elementu.	zdjecia-elementow
+element.zdjecie_kamera	Zdjęcie z kamery	Robi zdjęcie kamerą USB i wpisuje jego ścieżkę w pole Zdjęcie. Zdjęcie zostanie przypisane do elementu po zapisie formularza.	zdjecia-elementow
+element.z_katalogu	Z katalogu	Otwiera wyszukiwarkę katalogu elementów. Wybrana pozycja wypełnia symbol, producenta, opis, wartość, obudowę, tolerancję i parametry; ilość i miejsce uzupełniasz sam.	katalog-elementow
+katalog.symbol	Symbol (katalog)	Oznaczenie elementu, np. LM358. Z magazynem łączy się po symbolu lub symbolu producenta (wielkość liter nie ma znaczenia).	katalog-elementow
+katalog.producent	Producent (katalog)	Ten sam symbol od różnych producentów to osobne pozycje katalogu. Może być puste.	katalog-elementow
+katalog.opis	Opis (katalog)	Krótki opis funkcji elementu, np. Dual Op-Amp.	katalog-elementow
+katalog.obudowa	Obudowa (katalog)	Typ obudowy, np. DIP-8, SOT-23, TO-220.	katalog-elementow
+katalog.rodzina	Rodzina	Grupa do filtrowania, np. Wzmacniacze operacyjne albo Tranzystory. Można wpisać własną.	katalog-elementow
+katalog.datasheet	Datasheet (adres)	Adres karty katalogowej. Plik PDF można pobrać przyciskiem Pobierz datasheet i potem odczytać z niego parametry.	katalog-datasheet
+katalog.uwagi	Uwagi (katalog)	Dowolne własne notatki o elemencie.	katalog-elementow
+katalog.parametry	Parametry	Dowolne pary nazwa-wartość (napięcie, prąd, częstotliwość...). Źródło mówi, skąd parametr pochodzi: ręcznie, z CSV albo z datasheetu.	katalog-elementow
+katalog.szukaj	Szukaj w katalogu	Szuka po symbolu, producencie, opisie, rodzinie i obudowie.	katalog-elementow
+katalog.filtr_rodziny	Rodzina (filtr)	Ogranicza listę do jednej rodziny elementów.	katalog-elementow
+katalog.tylko_magazyn	Tylko te, które mam	Pokazuje tylko pozycje katalogu, które mają odpowiednik w magazynie (ten sam symbol).	katalog-elementow
+katalog.lista	Lista katalogu	Zielone pozycje masz w magazynie. Dwukrotne kliknięcie otwiera edycję.	katalog-elementow
+katalog.do_magazynu	Dodaj do magazynu	Tworzy element w magazynie z danymi z katalogu. Pytam o ilość, miejsce i kategorię. Gdy taki symbol już jest w magazynie, nic nie zostanie dodane.	katalog-elementow
+katalog.odczyt_pdf	Odczytaj parametry z PDF	Czyta tekst datasheetu (program pdftotext) i proponuje parametry. Nic nie zapisuje bez Twojego potwierdzenia, bo odczyt to zgadywanie z tekstu.	katalog-datasheet
+kalk.uwe	Napięcie wejściowe Uwe	Napięcie zasilające dzielnik w woltach, np. 5 albo 12.	kalk-dzielnik
+kalk.uwy	Napięcie wyjściowe Uwy	Napięcie, które ma dać dzielnik, np. 3,3. Musi być mniejsze niż Uwe.	kalk-dzielnik
+kalk.szereg	Szereg	Szereg wartości rezystorów, z którego program dobiera wynik. E24 to typowy wybór, E96 daje dokładniejsze dopasowanie.	kalk-dzielnik
+kalk.r1	R1 (do plusa)	Rezystor między Uwe a wyjściem dzielnika, np. 10k.	kalk-dzielnik
+kalk.r2	R2 (do masy)	Rezystor między wyjściem dzielnika a masą, np. 4k7.	kalk-dzielnik
+kalk.uzas	Napięcie zasilania	Napięcie, którym zasilasz diodę z rezystorem, w woltach.	kalk-led
+kalk.uf	Napięcie diody Uf	Napięcie przewodzenia diody LED: czerwona około 2 V, niebieska i biała około 3,2 V.	kalk-led
+kalk.iled	Prąd diody	Prąd w miliamperach, typowo 5 do 20 mA.	kalk-led
+kalk.rc_r	Rezystancja R	Rezystor filtru, np. 10k.	kalk-rc
+kalk.rc_c	Pojemność C	Kondensator filtru, np. 100n.	kalk-rc
+kalk.rc_f	Częstotliwość fc	Częstotliwość graniczna, dla której dobierany jest R albo C, np. 1k albo 440.	kalk-rc

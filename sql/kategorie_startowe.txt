@@ -1,0 +1,47 @@
+# Kategorie startowe DomowegoMagazynu.
+# Format: ścieżka kategorii, nazwy rozdzielone znakiem " / " (ze spacjami). Linie z # są pomijane.
+# Ta lista odpowiada kategoriom tworzonym przez sql/dane_startowe.sql.
+Elementy bierne / Rezystory / Rezystory THT
+Elementy bierne / Rezystory / Rezystory SMD
+Elementy bierne / Rezystory / Potencjometry i trymery
+Elementy bierne / Rezystory / Termistory i warystory
+Elementy bierne / Kondensatory / Elektrolityczne
+Elementy bierne / Kondensatory / Ceramiczne
+Elementy bierne / Kondensatory / Foliowe
+Elementy bierne / Kondensatory / Tantalowe
+Elementy bierne / Cewki i dławiki
+Elementy bierne / Kwarce i rezonatory
+Elementy bierne / Bezpieczniki
+Półprzewodniki / Diody / Diody prostownicze
+Półprzewodniki / Diody / Diody Zenera
+Półprzewodniki / Diody / Diody Schottky'ego
+Półprzewodniki / Diody / Diody LED
+Półprzewodniki / Tranzystory / Bipolarne
+Półprzewodniki / Tranzystory / MOSFET
+Półprzewodniki / Tranzystory / IGBT
+Półprzewodniki / Tyrystory i triaki
+Półprzewodniki / Transoptory
+Układy scalone / Mikrokontrolery
+Układy scalone / Stabilizatory napięcia
+Układy scalone / Wzmacniacze operacyjne
+Układy scalone / Logika
+Układy scalone / Pamięci
+Układy scalone / Interfejsy i komunikacja
+Układy scalone / Przetworniki ADC/DAC
+Złącza i elektromechanika / Złącza i listwy
+Złącza i elektromechanika / Przełączniki i przyciski
+Złącza i elektromechanika / Przekaźniki
+Złącza i elektromechanika / Gniazda i podstawki
+Złącza i elektromechanika / Przewody i kable
+Moduły i płytki / Płytki rozwojowe
+Moduły i płytki / Moduły czujników
+Moduły i płytki / Moduły zasilające
+Moduły i płytki / Wyświetlacze
+Zasilanie / Baterie i akumulatory
+Zasilanie / Zasilacze
+Zasilanie / Transformatory
+Mechanika i obudowy / Obudowy
+Mechanika i obudowy / Śrubki, dystanse, wsporniki
+Mechanika i obudowy / Radiatory
+Narzędzia i materiały
+Inne

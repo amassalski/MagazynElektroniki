@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=DomowyMagazyn
+Comment=Magazyn części elektronicznych
+Comment[en]=Electronic parts inventory
+Exec=domowymagazyn
+Icon=domowymagazyn
+Terminal=false
+Type=Application
+Categories=Electronics;Engineering;
+Keywords=electronics;inventory;parts;
+Name[pl]=Domowy Magazyn
+StartupNotify=true

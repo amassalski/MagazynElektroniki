@@ -1,0 +1,57 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "windows-msys2",
+      "displayName": "Windows MSYS2",
+      "description": "Konfiguracja dla Windows z MSYS2",
+      "generator": "MinGW Makefiles",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_C_COMPILER": "gcc",
+        "CMAKE_CXX_COMPILER": "g++",
+        "WXWIDGETS_ROOT": "C:/wxWidgets-3.2.9",
+        "USE_SYSTEM_WX": "OFF"
+      }
+    },
+    {
+      "name": "windows-msvc",
+      "displayName": "Windows MSVC",
+      "description": "Konfiguracja dla Windows z Visual Studio",
+      "generator": "Visual Studio 17 2022",
+      "binaryDir": "${sourceDir}/build",
+      "architecture": {
+        "value": "x64",
+        "strategy": "external"
+      },
+      "cacheVariables": {
+        "WXWIDGETS_ROOT": "C:/wxWidgets-3.2.9",
+        "USE_SYSTEM_WX": "OFF"
+      }
+    },
+    {
+      "name": "linux",
+      "displayName": "Linux",
+      "description": "Konfiguracja dla Linux",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "USE_SYSTEM_WX": "ON"
+      }
+    },
+    {
+      "name": "macos",
+      "displayName": "macOS",
+      "description": "Konfiguracja dla macOS",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "USE_SYSTEM_WX": "ON"
+      }
+    }
+  ]
+}
+
